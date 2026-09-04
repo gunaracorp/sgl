@@ -8,6 +8,7 @@ import { Hero } from "@/components/landing/hero";
 import { HowItWorks } from "@/components/landing/how-it-works";
 import { JsonLd } from "@/components/landing/json-ld";
 import { Navbar } from "@/components/landing/navbar";
+import { Outlets } from "@/components/landing/outlets";
 import { Pricing } from "@/components/landing/pricing";
 import { Services } from "@/components/landing/services";
 import { Stats } from "@/components/landing/stats";
@@ -29,6 +30,7 @@ export default function Home() {
         <HowItWorks />
         <Pricing />
         <Testimonials />
+        <Outlets />
         <Faq />
         <CtaBanner />
         <Contact />

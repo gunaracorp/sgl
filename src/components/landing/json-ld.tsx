@@ -1,4 +1,10 @@
-import { FAQS, SITE, SITE_URL, SOCIAL_LINKS } from "@/lib/site";
+import {
+  FAQS,
+  OUTLETS,
+  SITE,
+  SITE_URL,
+  SOCIAL_LINKS,
+} from "@/lib/site";
 
 /**
  * JSON-LD Structured Data — "bahasa" yang dibaca mesin pencari (Google, Bing)
@@ -27,13 +33,20 @@ export function JsonLd() {
       paymentAccepted: "Tunai, QRIS, Transfer Bank",
       address: {
         "@type": "PostalAddress",
-        streetAddress: SITE.address,
+        streetAddress: "Jl. Malangsari No. 22, Tlogosari Kulon",
+        addressLocality: "Semarang",
+        addressRegion: "Jawa Tengah",
+        postalCode: "50196",
         addressCountry: "ID",
       },
-      areaServed: {
-        "@type": "City",
-        name: "Indonesia",
-      },
+      department: OUTLETS.map((outlet) => ({
+        "@id": `${SITE_URL}/outlet/${outlet.slug}/#outlet`,
+      })),
+      areaServed: [
+        { "@type": "City", name: "Semarang" },
+        { "@type": "AdministrativeArea", name: "Kecamatan Pedurungan" },
+        { "@type": "AdministrativeArea", name: "Kabupaten Semarang" },
+      ],
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
@@ -158,6 +171,46 @@ export function JsonLd() {
         },
       })),
     },
+    ...OUTLETS.map((outlet) => ({
+      "@type": ["LocalBusiness", "DryCleaningOrLaundry"],
+      "@id": `${SITE_URL}/outlet/${outlet.slug}/#outlet`,
+      name: outlet.name,
+      parentOrganization: { "@id": `${SITE_URL}/#business` },
+      description: outlet.description,
+      url: `${SITE_URL}/outlet/${outlet.slug}/`,
+      telephone: SITE.phoneIntl,
+      image: `${SITE_URL}/og-image.jpg`,
+      logo: `${SITE_URL}/favicon.svg`,
+      priceRange: "Rp7.000 - Rp35.000",
+      currenciesAccepted: "IDR",
+      paymentAccepted: "Tunai, QRIS, Transfer Bank",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: outlet.streetAddress,
+        addressLocality: "Semarang",
+        addressRegion: "Jawa Tengah",
+        postalCode: outlet.postalCode,
+        addressCountry: "ID",
+      },
+      areaServed: [outlet.area, outlet.district, "Semarang"].map((name) => ({
+        "@type": "Place",
+        name,
+      })),
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          opens: "07:00",
+          closes: "21:00",
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: "Sunday",
+          opens: "08:00",
+          closes: "18:00",
+        },
+      ],
+    })),
   ];
 
   return (

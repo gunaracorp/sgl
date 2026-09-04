@@ -154,3 +154,25 @@ Stage Summary:
 - DOMAIN sgl.web.id AKTIF PENUH di seluruh sistem SEO — tinggal upload isi out/ ke public_html
 - out/ (2.2MB) + samara-green-laundry-website.zip (1.0MB) berisi semua: canonical, sitemap, robots, JSON-LD, OG image, manifest, .htaccess canonical redirect
 - Langkah user selanjutnya: upload → AutoSSL di cPanel → Search Console (tambah properti sgl.web.id) → submit sitemap.xml
+
+---
+Task ID: 12
+Agent: main orchestrator (Z.ai Code)
+Task: Integrasi 3 outlet asli Semarang (Malangsari, Sendangguwo, Dempel) — section Lokasi cantik + halaman outlet khusus + SEO lokal full
+
+Work Log:
+- site.ts: SITE.address diganti alamat asli (Jl. Malangsari No. 22, Tlogosari Kulon, Pedurungan, Semarang 50196); tambah OUTLETS (slug, alamat per baris, landmark, deskripsi SEO, keywords lokal, mapsQuery), helper outletMapsUrl/outletMapsEmbedUrl/outletWaLink/getOutlet; NAV_LINKS + "Lokasi" (#lokasi)
+- Komponen BARU outlets.tsx: section gradient hijau, 3 kartu outlet (hover lift, chips layanan, jam buka, tombol Petunjuk Arah Google Maps + Chat Outlet WA per outlet + Detail Outlet), Tabs shadcn berisi iframe Google Maps per outlet (lazy, ganti sesuai tab — tanpa API key)
+- Halaman BARU app/outlet/[slug]/page.tsx: generateStaticParams 3 outlet, generateMetadata per outlet (title "Laundry [Kel] [Kec] Semarang — [Outlet]", canonical /outlet/[slug]/, OG), breadcrumb, hero + peta embed, layanan + keywords lokal natural, jam buka, kontak WA spesifik outlet, kartu outlet lain; JSON-LD LocalBusiness per outlet (parentOrganization, PostalAddress lengkap, areaServed, openingHours) + BreadcrumbList
+- json-ld.tsx: alamat utama jadi PostalAddress lengkap (Semarang/Jawa Tengah/50196), department → 3 outlet, areaServed Semarang+Pedurungan, tambah 3 node LocalBusiness outlet di @graph
+- sitemap.ts: 4 URL (beranda + 3 outlet priority 0.8)
+- navbar.tsx: desktop nav pindah ke breakpoint xl (8 link), usePathname → link section jadi /#anchor saat di halaman outlet; footer.tsx jadi client + penanganan sama + daftar 3 outlet di kolom kontak
+- Build: lint 0 error; deploy → out/ 3.0MB + ZIP 1.4MB; out/outlet/{malangsari,sendangguwo,dempel}/index.html lengkap
+- Verifikasi browser dev :3000: section #lokasi + 3 kartu + tab peta (Malangsari↔Dempel iframe berganti, pin alamat ASLI muncul di Google Maps), halaman /outlet/dempel/ (title, canonical sgl.web.id/outlet/dempel/, breadcrumb, JSON-LD LocalBusiness+BreadcrumbList), mobile 390px rapi, nav outlet → /#anchor benar
+- Verifikasi build statis via http.server 4173: beranda (3 kartu outlet) + /outlet/sendangguwo/ (hydrated, tombol wa.me/628134506007) — tanpa error
+- sitemap.xml statis: 4 <loc> sgl.web.id; dev.log bersih
+
+Stage Summary:
+- 3 outlet asli live: section Lokasi di beranda + halaman khusus per outlet dengan peta Google interaktif
+- SEO lokal lengkap: canonical per outlet, sitemap 4 URL, JSON-LD LocalBusiness per outlet + parentOrganization, keyword lokal (Tlogosari Kulon, Gemah, Muktiharjo Kidul, Pedurungan, Sendangguwo, Dempel)
+- Data outlet terpusat di OUTLETS (site.ts) — tambah/edit outlet cukup di satu tempat

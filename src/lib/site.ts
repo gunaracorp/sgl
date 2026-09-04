@@ -24,14 +24,125 @@ export const SITE = {
   phoneDisplay: "0821-3450-6007",
   /** Nomor internasional untuk link tel: */
   phoneIntl: "+628134506007",
-  address: "Jl. Samara Indah No. 88, Indonesia",
+  /** Alamat outlet utama (Malangsari) — ditampilkan di kontak & footer */
+  address:
+    "Jl. Malangsari No. 22, Tlogosari Kulon, Pedurungan, Kota Semarang, Jawa Tengah 50196",
+  city: "Kota Semarang",
+  region: "Jawa Tengah",
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=Jl.+Samara+Indah+No.+88+Indonesia",
+    "https://www.google.com/maps/search/?api=1&query=Jl.+Malangsari+No.+22,+Tlogosari+Kulon,+Pedurungan,+Kota+Semarang,+Jawa+Tengah+50196",
   hours: [
     { day: "Senin – Sabtu", time: "07.00 – 21.00 WIB" },
     { day: "Minggu", time: "08.00 – 18.00 WIB" },
   ],
 } as const;
+
+/**
+ * Data outlet fisik Samara Green Laundry — sumber tunggal untuk:
+ * section "Lokasi Outlet" di homepage, halaman khusus /outlet/[slug]/,
+ * sitemap.xml, dan JSON-LD LocalBusiness per outlet.
+ */
+export const OUTLETS = [
+  {
+    slug: "malangsari",
+    name: "Samara Green Laundry Malangsari",
+    shortName: "Malangsari",
+    area: "Tlogosari Kulon",
+    district: "Pedurungan",
+    streetAddress: "Jl. Malangsari No. 22",
+    postalCode: "50196",
+    landmark: null,
+    addressLines: [
+      "Jl. Malangsari No. 22",
+      "Kel. Tlogosari Kulon, Kec. Pedurungan",
+      "Kota Semarang, Jawa Tengah 50196",
+    ],
+    description:
+      "Samara Green Laundry Malangsari melayani laundry kiloan, laundry satuan, cuci setrika, dan laundry antar jemput di Tlogosari Kulon, Pedurungan, dan area sekitar Kota Semarang.",
+    keywords: [
+      "laundry tlogosari kulon",
+      "laundry pedurungan semarang",
+      "laundry kiloan semarang",
+      "laundry antar jemput semarang",
+    ],
+    mapsQuery:
+      "Jl. Malangsari No. 22, Tlogosari Kulon, Pedurungan, Kota Semarang, Jawa Tengah 50196",
+  },
+  {
+    slug: "sendangguwo",
+    name: "Samara Green Laundry Sendangguwo",
+    shortName: "Sendangguwo",
+    area: "Gemah",
+    district: "Pedurungan",
+    streetAddress: "Jl. Sendangguwo Selatan No. 24",
+    postalCode: "50246",
+    landmark: null,
+    addressLines: [
+      "Jl. Sendangguwo Selatan No. 24",
+      "Kel. Gemah, Kec. Pedurungan",
+      "Kota Semarang, Jawa Tengah 50246",
+    ],
+    description:
+      "Samara Green Laundry Sendangguwo melayani laundry kiloan, laundry satuan, cuci setrika, dan laundry antar jemput di Gemah, Sendangguwo, Pedurungan, dan area sekitar Kota Semarang.",
+    keywords: [
+      "laundry gemah semarang",
+      "laundry sendangguwo",
+      "laundry pedurungan semarang",
+      "laundry antar jemput semarang",
+    ],
+    mapsQuery:
+      "Jl. Sendangguwo Selatan No. 24, Gemah, Pedurungan, Kota Semarang, Jawa Tengah 50246",
+  },
+  {
+    slug: "dempel",
+    name: "Samara Green Laundry Dempel",
+    shortName: "Dempel",
+    area: "Muktiharjo Kidul",
+    district: "Pedurungan",
+    streetAddress: "Jl. Dempel Mukti Raya",
+    postalCode: "50173",
+    landmark: "Depan SMP Walisongo",
+    addressLines: [
+      "Jl. Dempel Mukti Raya — Depan SMP Walisongo",
+      "Kel. Muktiharjo Kidul, Kec. Pedurungan",
+      "Kota Semarang, Jawa Tengah 50173",
+    ],
+    description:
+      "Samara Green Laundry Dempel melayani laundry kiloan, laundry satuan, cuci setrika, dan laundry antar jemput di Dempel, Muktiharjo Kidul, Pedurungan, dan area sekitar Kota Semarang.",
+    keywords: [
+      "laundry dempel semarang",
+      "laundry muktiharjo kidul",
+      "laundry pedurungan semarang",
+      "laundry antar jemput semarang",
+    ],
+    mapsQuery:
+      "Jl. Dempel Mukti Raya, Muktiharjo Kidul, Pedurungan, Kota Semarang, Jawa Tengah 50173",
+  },
+] as const;
+
+export type Outlet = (typeof OUTLETS)[number];
+
+/** Cari outlet berdasarkan slug (untuk halaman /outlet/[slug]/). */
+export function getOutlet(slug: string): Outlet | undefined {
+  return OUTLETS.find((o) => o.slug === slug);
+}
+
+/** URL Google Maps (buka aplikasi/website Maps) untuk satu outlet. */
+export function outletMapsUrl(outlet: Outlet): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(outlet.mapsQuery)}`;
+}
+
+/** URL embed Google Maps (iframe) untuk satu outlet — tanpa API key. */
+export function outletMapsEmbedUrl(outlet: Outlet): string {
+  return `https://www.google.com/maps?q=${encodeURIComponent(outlet.mapsQuery)}&hl=id&output=embed`;
+}
+
+/** Link WhatsApp dengan pesan spesifik outlet. */
+export function outletWaLink(outlet: Outlet): string {
+  return waLink(
+    `Halo ${outlet.name}! Saya mau pesan laundry area ${outlet.area}, ${outlet.district}, Semarang.`
+  );
+}
 
 export const NAV_LINKS = [
   { label: "Beranda", href: "#beranda" },
@@ -39,6 +150,7 @@ export const NAV_LINKS = [
   { label: "Harga", href: "#harga" },
   { label: "Cara Pesan", href: "#cara-pesan" },
   { label: "Testimoni", href: "#testimoni" },
+  { label: "Lokasi", href: "#lokasi" },
   { label: "FAQ", href: "#faq" },
   { label: "Kontak", href: "#kontak" },
 ] as const;

@@ -7,6 +7,7 @@ import {
   useScroll,
 } from "framer-motion";
 import { Leaf, Menu, MessageCircle } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,10 +21,10 @@ import {
 import { NAV_LINKS, SITE, WA_DEFAULT_LINK } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-function BrandMark() {
+function BrandMark({ homeHref }: { homeHref: string }) {
   return (
     <a
-      href="#beranda"
+      href={homeHref}
       className="flex items-center gap-2.5"
       aria-label={`${SITE.name} — kembali ke beranda`}
     >
@@ -42,6 +43,11 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  // Di halaman outlet, link section diarahkan ke beranda: /#layanan dst.
+  const resolveHref = (href: string) => (isHome ? href : `/${href}`);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 12);
@@ -65,16 +71,16 @@ export function Navbar() {
           scrolled ? "h-16" : "h-[4.5rem]"
         )}
       >
-        <BrandMark />
+        <BrandMark homeHref={isHome ? "#beranda" : "/"} />
 
         <nav
-          className="hidden items-center gap-1 lg:flex"
+          className="hidden items-center gap-1 xl:flex"
           aria-label="Navigasi utama"
         >
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={resolveHref(link.href)}
               className="rounded-full px-3.5 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
             >
               {link.label}
@@ -98,7 +104,7 @@ export function Navbar() {
               <Button
                 variant="outline"
                 size="icon"
-                className="size-11 rounded-xl border-emerald-900/10 bg-white/70 lg:hidden"
+                className="size-11 rounded-xl border-emerald-900/10 bg-white/70 xl:hidden"
                 aria-label="Buka menu navigasi"
               >
                 <Menu className="size-5" />
@@ -129,7 +135,7 @@ export function Navbar() {
                 {NAV_LINKS.map((link) => (
                   <a
                     key={link.href}
-                    href={link.href}
+                    href={resolveHref(link.href)}
                     onClick={() => setOpen(false)}
                     className="rounded-xl px-4 py-3 text-base font-semibold text-stone-700 transition-colors hover:bg-emerald-50 hover:text-emerald-700"
                   >

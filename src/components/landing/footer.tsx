@@ -1,8 +1,12 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { Facebook, Instagram, Leaf, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import {
   DESIGN_CREDIT,
   NAV_LINKS,
+  OUTLETS,
   SERVICE_TITLES,
   SITE,
   SOCIAL_LINKS,
@@ -12,13 +16,17 @@ import { TikTokIcon } from "./tiktok-icon";
 
 /** Dark forest-green footer, sticks to bottom via mt-auto on the root wrapper. */
 export function Footer() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const resolveHref = (href: string) => (isHome ? href : `/${href}`);
+
   return (
     <footer className="mt-auto bg-emerald-950 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-16 text-emerald-100/70">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
           {/* Brand */}
           <div>
-            <a href="#beranda" className="flex items-center gap-2.5">
+            <a href={isHome ? "#beranda" : "/"} className="flex items-center gap-2.5">
               <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-md">
                 <Leaf className="size-5 text-white" aria-hidden />
               </span>
@@ -79,7 +87,7 @@ export function Footer() {
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
-                    href={link.href}
+                    href={resolveHref(link.href)}
                     className="text-sm transition-colors hover:text-lime-300"
                   >
                     {link.label}
@@ -98,7 +106,7 @@ export function Footer() {
               {SERVICE_TITLES.map((service) => (
                 <li key={service}>
                   <a
-                    href="#layanan"
+                    href={resolveHref("#layanan")}
                     className="text-sm transition-colors hover:text-lime-300"
                   >
                     {service}
@@ -119,7 +127,22 @@ export function Footer() {
                   className="mt-0.5 size-4.5 shrink-0 text-lime-400"
                   aria-hidden
                 />
-                <span>{SITE.address}</span>
+                <span>
+                  {SITE.address}
+                  <ul className="mt-2.5 space-y-1.5">
+                    {OUTLETS.map((outlet) => (
+                      <li key={outlet.slug}>
+                        <a
+                          href={`/outlet/${outlet.slug}/`}
+                          className="inline-flex items-center gap-1.5 text-emerald-100/80 transition-colors hover:text-lime-300"
+                        >
+                          <span aria-hidden className="text-[10px]">▸</span>
+                          Outlet {outlet.shortName} — {outlet.area}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <Phone
