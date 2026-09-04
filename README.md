@@ -211,16 +211,16 @@ const nextConfig: NextConfig = {
 
 Semua data bisnis **terpusat di satu file** — tidak perlu ngopas kode di banyak tempat!
 
-### 🌐 WAJIB: Ganti Domain Website (Untuk SEO)
+### 🌐 Domain Website (SEO) — ✅ SUDAH AKTIF
 
 📁 **File: `src/lib/site.ts`** → baris paling atas:
 
 ```ts
-// ⚠️ GANTI dengan domain asli Anda setelah hosting aktif!
-export const SITE_URL = "https://samaragreenlaundry.com";
+// ✅ Domain resmi Samara Green Laundry (sudah dibeli & aktif)
+export const SITE_URL = "https://sgl.web.id";
 ```
 
-Konstanta ini otomatis dipakai untuk: **canonical URL, sitemap.xml, robots.txt, Open Graph, dan struktur data Google**. Setelah diganti, jalankan ulang `npm run deploy`.
+Konstanta ini otomatis dipakai untuk: **canonical URL, sitemap.xml, robots.txt, Open Graph, dan struktur data Google**. Domain `sgl.web.id` sudah terpasang di seluruh sistem — **tidak perlu diubah lagi**, kecuali suatu saat pindah domain (lalu jalankan ulang `npm run deploy`).
 
 ### 📇 Ganti Nomor WhatsApp / Kontak Person
 
@@ -331,8 +331,8 @@ Website ini sudah dilengkapi **paket SEO lengkap level profesional** — aktif o
 
 Agar Google **cepat mendeteksi** website Anda, lakukan 10 menit berikut:
 
-1. **Ganti `SITE_URL`** di `src/lib/site.ts` dengan domain asli Anda, lalu `npm run deploy` dan upload ulang
-2. **Pasang SSL/HTTPS** — di cPanel cari "SSL/TLS Status" → pilih domain → Run AutoSSL (gratis Let's Encrypt). Lalu buka tanda komentar baris HTTPS di `.htaccess` dan upload ulang
+1. ✅ **Domain `sgl.web.id` sudah aktif di seluruh sistem** (canonical, sitemap, robots, JSON-LD) — cukup upload isi `out/` ke `public_html` domain tersebut
+2. **Pasang SSL/HTTPS** — di cPanel cari "SSL/TLS Status" → pilih `sgl.web.id` → Run AutoSSL (gratis Let's Encrypt). Lalu buka tanda komentar baris HTTPS di `.htaccess` dan upload ulang
 3. **Daftarkan ke [Google Search Console](https://search.google.com/search-console)** → verifikasi kepemilikan (pilih metode "HTML tag" → kopi kode verifikasi → beri tahu kami untuk dipasang, atau pakai metode upload file) → klik **"Mulai Pengindeksan"** → masukkan domain Anda
 4. **Submit sitemap** — di Search Console menu **Sitemap** → isi `sitemap.xml` → Submit
 5. **Buat [Google Business Profile](https://business.google.com)** (gratis!) — WAJIB untuk bisnis lokal: website Anda bisa muncul di **Google Maps** + hasil pencarian "laundry terdekat"

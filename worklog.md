@@ -134,3 +134,23 @@ Stage Summary:
 - SEO FULL: rich snippet (bintang+jam buka+FAQ), sitemap, robots, canonical, OG image, manifest PWA
 - out/ + ZIP siap upload sudah berisi semua SEO
 - README: panduan aktivasi (ganti SITE_URL → AutoSSL → Search Console → submit sitemap → Google Business)
+
+---
+Task ID: 11
+Agent: main orchestrator (Z.ai Code)
+Task: Aktivasi domain resmi sgl.web.id ke seluruh settingan SEO
+
+Work Log:
+- site.ts: SITE_URL diaktifkan dari placeholder samaragreenlaundry.com → https://sgl.web.id (domain resmi yang dibeli user)
+- Domain otomatis menyebar ke SEMUA titik SEO (satu sumber): canonical, metadataBase, og:url, og:image, twitter:image, JSON-LD @id/url/image/logo, robots.txt Sitemap, sitemap.xml loc
+- public/.htaccess: tambah redirect 301 AKTIF www.sgl.web.id → sgl.web.id (canonical, anti duplikat konten; pola %{HTTPS}s aman dengan/tanpa SSL), komentar HTTPS-redirect dirujuk ke AutoSSL sgl.web.id
+- README: section domain → "✅ SUDAH AKTIF sgl.web.id", checklist aktivasi step 1 dicoret selesai (tinggal upload)
+- Rebuild penuh: lint 0 error → BUILD_DIST_DIR=.next-build npm run deploy → out/ + samara-green-laundry-website.zip (1.0MB) diperbarui
+- Verifikasi statis out/: robots.txt ("Sitemap: https://sgl.web.id/sitemap.xml"), sitemap.xml (loc https://sgl.web.id), manifest.webmanifest, canonical <link href="https://sgl.web.id/"/>, meta robots index,follow, 10 tag OG, 4 tag twitter, JSON-LD LocalBusiness+DryCleaningOrLaundry, .htaccess 3x sgl
+- Verifikasi browser (agent-browser): dev :3000 live — canonical https://sgl.web.id/, og:image https://sgl.web.id/og-image.jpg, JSON-LD @graph [LocalBusiness, DryCleaningOrLaundry, WebSite, WebPage, FAQPage], render desktop 1280 & mobile 390 sempurna, tanpa error console/page
+- Cleanup .next-build, dev.log bersih
+
+Stage Summary:
+- DOMAIN sgl.web.id AKTIF PENUH di seluruh sistem SEO — tinggal upload isi out/ ke public_html
+- out/ (2.2MB) + samara-green-laundry-website.zip (1.0MB) berisi semua: canonical, sitemap, robots, JSON-LD, OG image, manifest, .htaccess canonical redirect
+- Langkah user selanjutnya: upload → AutoSSL di cPanel → Search Console (tambah properti sgl.web.id) → submit sitemap.xml

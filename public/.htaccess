@@ -29,8 +29,17 @@ ErrorDocument 404 /404.html
 # --- Charset default ---
 AddDefaultCharset UTF-8
 
+# --- Canonical Redirect SEO: www.sgl.web.id → sgl.web.id ---
+# Mencegah duplikat konten di mata Google (www vs non-www dianggap 2 website).
+# Aman: bekerja dengan baik baik saat HTTPS sudah aktif maupun belum.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.sgl\.web\.id$ [NC]
+  RewriteCond %{HTTPS}s ^on(s)|off
+  RewriteRule ^(.*)$ http%1://sgl.web.id/$1 [R=301,L]
+</IfModule>
+
 # --- Opsional: paksa HTTPS (hapus tanda # di 2 baris bawah jika
-#     hosting Anda sudah punya SSL/https) ---
-# RewriteEngine On
+#     hosting Anda sudah punya SSL/https — jalankan AutoSSL dulu di cPanel) ---
 # RewriteCond %{HTTPS} off
 # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]

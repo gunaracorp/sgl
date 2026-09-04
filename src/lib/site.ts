@@ -10,11 +10,12 @@
 export const WHATSAPP_NUMBER = "628134506007";
 
 /**
- * ⚠️ PENTING UNTUK SEO: ganti dengan domain asli website Anda!
+ * ✅ DOMAIN AKTIF: sgl.web.id — domain resmi yang sudah dibeli & digunakan.
  * Digunakan untuk: canonical URL, sitemap.xml, robots.txt, Open Graph, dan Google Search Console.
- * Format: https://www.domainanda.com (TANPA garis miring di akhir)
+ * Format: https://domainanda.com (TANPA garis miring di akhir).
+ * Hanya ubah jika suatu saat pindah domain!
  */
-export const SITE_URL = "https://samaragreenlaundry.com";
+export const SITE_URL = "https://sgl.web.id";
 
 export const SITE = {
   name: "Samara Green Laundry",
