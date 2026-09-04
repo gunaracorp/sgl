@@ -9,36 +9,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
-import { WA_DEFAULT_LINK } from "@/lib/site";
+import { FAQS, WA_DEFAULT_LINK } from "@/lib/site";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
-
-const FAQS = [
-  {
-    q: "Jam operasional Samara Green Laundry kapan saja?",
-    a: "Kami buka Senin–Sabtu pukul 07.00–21.00 WIB dan Minggu pukul 08.00–18.00 WIB. Untuk layanan kilat, sebaiknya pesan maksimal 4 jam sebelum jam tutup.",
-  },
-  {
-    q: "Area mana saja yang tercakup layanan antar-jemput?",
-    a: "Antar-jemput gratis untuk area terdekat sekitar Jl. Samara Indah dan radius 5 km. Di luar radius tersedia dengan biaya tambahan kecil — cukup konfirmasi lewat WhatsApp.",
-  },
-  {
-    q: "Berapa lama proses pencucian sampai selesai?",
-    a: "Layanan reguler selesai 2 hari kerja, layanan Kilat Express selesai hanya 6 jam. Untuk bed cover, sepatu, dan dry cleaning umumnya membutuhkan 2–3 hari kerja.",
-  },
-  {
-    q: "Deterjen apa yang digunakan?",
-    a: "Kami menggunakan deterjen nabati eco-friendly bebas fosfat dengan pewangi alami — aman untuk kulit sensitif dan bayi, sekaligus ramah lingkungan.",
-  },
-  {
-    q: "Bagaimana cara pembayarannya?",
-    a: "Kami menerima pembayaran Tunai, QRIS, dan Transfer Bank. Pembayaran dilakukan setelah cucian selesai — tanpa DP, tanpa biaya tersembunyi.",
-  },
-  {
-    q: "Apakah ada layanan cuci darurat atau kilat?",
-    a: "Ada! Layanan Kilat Express kami selesai dalam 6 jam dengan prioritas pengerjaan — cocok untuk kebutuhan mendesak seperti seragam kerja atau acara mendadak.",
-  },
-];
 
 /** Two-column FAQ: heading + support card on the left, accordion on the right. */
 export function Faq() {

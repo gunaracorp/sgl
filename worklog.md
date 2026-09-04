@@ -113,3 +113,24 @@ Work Log:
 Stage Summary:
 - out/ + samara-green-laundry-website.zip SIAP UPLOAD ke public_html
 - npm run build / npm run deploy kini deterministik menghasilkan out/ di semua versi Next.js
+
+---
+Task ID: 10
+Agent: main orchestrator (Z.ai Code)
+Task: SEO full optimization agar mudah terdeteksi mesin pencari
+
+Work Log:
+- site.ts: tambah SITE_URL (placeholder samaragreenlaundry.com, terdokumentasi) + FAQS terpusat (satu sumber untuk tampilan & schema)
+- layout.tsx: metadata lengkap — metadataBase, canonical, OG+og:image, Twitter Card, robots index/follow + googleBot max-image-preview:large, 13 keyword, creator/publisher PT Digital Bisnis Manajemen, viewport themeColor
+- Metadata routes dinamis dari site.ts: app/robots.txt, app/sitemap.xml, app/manifest.webmanifest (dengan force-static untuk export); hapus public/robots.txt lama (konflik)
+- json-ld.tsx: schema @graph — DryCleaningOrLaundry/LocalBusiness (telepon, alamat, jam buka, priceRange, paymentAccepted, aggregateRating 4.9/2500, sameAs TikTok/sosmed, OfferCatalog 6 layanan) + WebSite + WebPage + FAQPage; wired ke page.tsx
+- scripts/make-og.mjs (sharp): og-image.jpg 1200x630 dari hero + overlay brand/WA/rating
+- scripts/prepare-out.mjs diperbaiki: selalu timpa out/ dari artefak build terbaru (anti-stale)
+- Build: perlu fix dynamic="force-static" di 3 metadata route; build sukses 6/6 static
+- Hasil: out/ 2.2MB + samara-green-laundry-website.zip 976KB; 12 tag SEO terverifikasi di out/index.html (ld+json, canonical, og, twitter, robots, manifest)
+- eslint ignore .next-build; lint 0 warning; dev server sehat, page render normal, 1 script JSON-LD live
+
+Stage Summary:
+- SEO FULL: rich snippet (bintang+jam buka+FAQ), sitemap, robots, canonical, OG image, manifest PWA
+- out/ + ZIP siap upload sudah berisi semua SEO
+- README: panduan aktivasi (ganti SITE_URL → AutoSSL → Search Console → submit sitemap → Google Business)

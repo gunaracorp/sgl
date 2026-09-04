@@ -17,15 +17,16 @@ import { join } from "node:path";
 
 const cwd = process.cwd();
 
-// 1️⃣ Tentukan sumber hasil export
+// 1️⃣ Tentukan sumber hasil export — PRIORITASKAN hasil build TERBARU
+//    (folder out/ lama akan ditimpa agar tidak ada file basi/stale)
 let source;
-if (existsSync(join(cwd, "out", "index.html"))) {
-  console.log("ℹ️  Folder out/ sudah berisi hasil export (perilaku Next.js lama). Tidak ada yang perlu dilakukan.");
-  process.exit(0);
-} else if (process.env.BUILD_DIST_DIR && existsSync(join(process.env.BUILD_DIST_DIR, "index.html"))) {
+if (process.env.BUILD_DIST_DIR && existsSync(join(cwd, process.env.BUILD_DIST_DIR, "index.html"))) {
   source = join(cwd, process.env.BUILD_DIST_DIR);
 } else if (existsSync(join(cwd, ".next", "index.html"))) {
   source = join(cwd, ".next");
+} else if (existsSync(join(cwd, "out", "index.html"))) {
+  console.log("ℹ️  Tidak menemukan artefak build baru — memakai out/ yang sudah ada.");
+  process.exit(0);
 } else {
   console.error("❌ Tidak menemukan hasil export. Jalankan `next build` dulu (pastikan output: \"export\" di next.config.ts).");
   process.exit(1);

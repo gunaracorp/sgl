@@ -211,6 +211,17 @@ const nextConfig: NextConfig = {
 
 Semua data bisnis **terpusat di satu file** — tidak perlu ngopas kode di banyak tempat!
 
+### 🌐 WAJIB: Ganti Domain Website (Untuk SEO)
+
+📁 **File: `src/lib/site.ts`** → baris paling atas:
+
+```ts
+// ⚠️ GANTI dengan domain asli Anda setelah hosting aktif!
+export const SITE_URL = "https://samaragreenlaundry.com";
+```
+
+Konstanta ini otomatis dipakai untuk: **canonical URL, sitemap.xml, robots.txt, Open Graph, dan struktur data Google**. Setelah diganti, jalankan ulang `npm run deploy`.
+
 ### 📇 Ganti Nomor WhatsApp / Kontak Person
 
 📁 **File: `src/lib/site.ts`**
@@ -298,21 +309,43 @@ Lalu upload ulang ZIP ke `public_html` (langkah yang sama seperti di atas). **Se
 
 ---
 
-## 🔍 SEO & Optimasi
+## 🔍 SEO & Optimasi (FULL OPTIMIZED)
 
-Sudah termasuk & aktif otomatis:
+Website ini sudah dilengkapi **paket SEO lengkap level profesional** — aktif otomatis sejak build:
 
-- ✅ **Title & meta description** Bahasa Indonesia berorientasi keyword laundry
-- ✅ **Open Graph + Twitter Card** (bagus saat link dibagikan ke WA/Facebook/Twitter)
-- ✅ **Semantic HTML** (`header`, `main`, `section`, `nav`, `footer`) — mesin pencari suka
-- ✅ **Favicon kustom** daun hijau
-- ✅ **`.htaccess`** — kompresi Gzip + browser caching (skor PageSpeed naik 📈)
-- ✅ Gambar dengan `alt` text deskriptif
+### ✅ Yang Sudah Terpasang
 
-**Tips lanjutan (opsional):**
-1. Pasang **SSL gratis** (Let's Encrypt) dari cPanel → aktifkan baris HTTPS di `.htaccess`
-2. Daftarkan website ke **[Google Search Console](https://search.google.com/search-console)** & **Google Business Profile** (wajib untuk bisnis lokal agar muncul di Google Maps!)
-3. Tambahkan alamat asli di meta tag agar SEO lokal makin kuat
+| Fitur SEO | Fungsi |
+|---|---|
+| 🧩 **JSON-LD Structured Data** | `DryCleaningOrLaundry` (profil bisnis), `WebSite`, `WebPage`, `FAQPage` — membuat website tampil sebagai **rich snippet** di Google: bintang ⭐ 4.9, jam buka, harga layanan, dan FAQ langsung di hasil pencarian! |
+| 🗺️ **sitemap.xml** | Peta halaman untuk mesin pencari (di-generate otomatis saat build) |
+| 🤖 **robots.txt** | Mengizinkan semua bot + mengarahkan ke sitemap |
+| 🔗 **Canonical URL** | Mencegah duplikat konten di mata Google |
+| 🖼️ **Open Graph + Twitter Card + OG Image** | Saat link dibagikan ke WhatsApp/Facebook/X, muncul preview premium dengan foto, nama brand, nomor WA, dan rating |
+| 📱 **Manifest PWA** | Website bisa di-"install" seperti aplikasi di HP pelanggan |
+| 🏷️ **Meta lengkap** | Title, description, 13 keyword laundry, `robots: index,follow`, `max-image-preview:large`, tema warna hijau |
+| 🧱 **Semantic HTML** | `header`, `main`, `section`, `nav`, `footer`, heading hierarchy benar, alt text semua gambar |
+| ⚡ **Performa** | HTML statis murni + `.htaccess` (Gzip + caching) = skor PageSpeed tinggi |
+
+### 🚀 Checklist Aktivasi Setelah Website Online (PENTING!)
+
+Agar Google **cepat mendeteksi** website Anda, lakukan 10 menit berikut:
+
+1. **Ganti `SITE_URL`** di `src/lib/site.ts` dengan domain asli Anda, lalu `npm run deploy` dan upload ulang
+2. **Pasang SSL/HTTPS** — di cPanel cari "SSL/TLS Status" → pilih domain → Run AutoSSL (gratis Let's Encrypt). Lalu buka tanda komentar baris HTTPS di `.htaccess` dan upload ulang
+3. **Daftarkan ke [Google Search Console](https://search.google.com/search-console)** → verifikasi kepemilikan (pilih metode "HTML tag" → kopi kode verifikasi → beri tahu kami untuk dipasang, atau pakai metode upload file) → klik **"Mulai Pengindeksan"** → masukkan domain Anda
+4. **Submit sitemap** — di Search Console menu **Sitemap** → isi `sitemap.xml` → Submit
+5. **Buat [Google Business Profile](https://business.google.com)** (gratis!) — WAJIB untuk bisnis lokal: website Anda bisa muncul di **Google Maps** + hasil pencarian "laundry terdekat"
+6. **Bagikan link website** ke WhatsApp Status & media sosial — kunjungan awal mempercepat indeks
+
+> 💡 Hasilnya? Dalam 1–7 hari biasanya website sudah terindeks Google. Dengan structured data yang terpasang, potensi tampil sebagai rich snippet dengan bintang & FAQ sangat besar — persis seperti website laundry besar!
+
+### 🛠️ Verifikasi SEO (Opsional)
+
+Setelah online, tes website Anda di:
+- **[Google Rich Results Test](https://search.google.com/test/rich-results)** → harus mendeteksi *Local Business* + *FAQ*
+- **[Meta Tag Checker](https://metatags.io)** → preview tampilan saat link dibagikan
+- **[PageSpeed Insights](https://pagespeed.web.dev)** → cek skor kecepatan
 
 ---
 
