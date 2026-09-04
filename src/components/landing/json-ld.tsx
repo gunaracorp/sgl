@@ -2,6 +2,7 @@ import {
   BUDGET_PLANS,
   FAQS,
   OUTLETS,
+  outletHoursSpec,
   PRICE_RANGE,
   SITE,
   SITE_URL,
@@ -52,15 +53,17 @@ export function JsonLd() {
       openingHoursSpecification: [
         {
           "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          dayOfWeek: [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday",
+          ],
           opens: "07:00",
-          closes: "21:00",
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: "Sunday",
-          opens: "08:00",
-          closes: "18:00",
+          closes: "22:00",
         },
       ],
       sameAs: Object.values(SOCIAL_LINKS),
@@ -191,7 +194,7 @@ export function JsonLd() {
       parentOrganization: { "@id": `${SITE_URL}/#business` },
       description: outlet.description,
       url: `${SITE_URL}/outlet/${outlet.slug}/`,
-      telephone: SITE.phoneIntl,
+      telephone: outlet.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/favicon.svg`,
       priceRange: PRICE_RANGE,
@@ -209,20 +212,7 @@ export function JsonLd() {
         "@type": "Place",
         name,
       })),
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          opens: "07:00",
-          closes: "21:00",
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: "Sunday",
-          opens: "08:00",
-          closes: "18:00",
-        },
-      ],
+      openingHoursSpecification: outletHoursSpec(outlet),
     })),
   ];
 

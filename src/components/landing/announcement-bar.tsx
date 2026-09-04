@@ -31,8 +31,8 @@ export function AnnouncementBar() {
 
           <div className="relative mx-auto flex w-full max-w-7xl items-center justify-center gap-3 px-12 py-2.5 text-center sm:px-6 lg:px-8">
             <p className="text-xs font-medium sm:text-sm">
-              🌱 <span className="font-bold">Gratis Antar-Jemput</span> area
-              terdekat — sekarang!
+              🌱 <span className="font-bold">Buka Setiap Hari</span> · Gratis
+              Antar-Jemput area terdekat!
             </p>
             <a
               href={WA_DEFAULT_LINK}

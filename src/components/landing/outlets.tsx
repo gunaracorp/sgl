@@ -7,19 +7,23 @@ import {
   MapPin,
   MessageCircle,
   Navigation,
+  Phone,
   Store,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  OPEN_DAYS,
   OUTLETS,
   outletMapsEmbedUrl,
   outletMapsUrl,
+  outletTelLink,
   outletWaLink,
   SITE,
   type Outlet,
 } from "@/lib/site";
+import { OpenNowBadge } from "./open-now-badge";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
@@ -90,10 +94,25 @@ function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
         ))}
       </ul>
 
-      <p className="relative mt-4 flex items-center gap-2 text-xs font-medium text-stone-500">
-        <Clock className="size-4 shrink-0 text-emerald-600" aria-hidden />
-        Sen–Sab 07.00–21.00 · Min 08.00–18.00
+      <p className="relative mt-4 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs font-medium text-stone-500">
+        <span className="flex items-center gap-2">
+          <Clock className="size-4 shrink-0 text-emerald-600" aria-hidden />
+          <span>
+            <strong className="font-bold text-stone-700">{outlet.hoursDisplay}</strong>
+            {" "}· {OPEN_DAYS.replace(" (Senin – Minggu)", "")}
+          </span>
+        </span>
+        <OpenNowBadge outlet={outlet} />
       </p>
+
+      <a
+        href={outletTelLink(outlet)}
+        className="relative mt-3 inline-flex items-center gap-2 text-sm font-bold text-emerald-700 transition-colors hover:text-emerald-600"
+        aria-label={`Telepon ${outlet.name} di ${outlet.phoneDisplay}`}
+      >
+        <Phone className="size-4 shrink-0 text-emerald-600" aria-hidden />
+        {outlet.phoneDisplay}
+      </a>
 
       <div className="relative mt-5 flex flex-wrap items-center gap-2 pt-1">
         <Button asChild size="sm" className="h-10 flex-1 rounded-full">
@@ -111,9 +130,14 @@ function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
           asChild
           size="sm"
           variant="outline"
-          className="h-10 rounded-full border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
+          className="h-10 flex-1 rounded-full border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:text-emerald-800"
         >
-          <a href={outletWaLink(outlet)} target="_blank" rel="noopener noreferrer">
+          <a
+            href={outletWaLink(outlet)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`WhatsApp ${outlet.name} di ${outlet.phoneDisplay}`}
+          >
             <MessageCircle aria-hidden />
             Chat Outlet
           </a>

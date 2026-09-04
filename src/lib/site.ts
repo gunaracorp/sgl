@@ -32,8 +32,9 @@ export const SITE = {
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Jl.+Malangsari+No.+22,+Tlogosari+Kulon,+Pedurungan,+Kota+Semarang,+Jawa+Tengah+50196",
   hours: [
-    { day: "Senin – Sabtu", time: "07.00 – 21.00 WIB" },
-    { day: "Minggu", time: "08.00 – 18.00 WIB" },
+    { day: "Outlet Malangsari — Tlogosari Kulon", time: "Setiap hari · 07.00 – 22.00" },
+    { day: "Outlet Sendangguwo — Gemah", time: "Setiap hari · 08.00 – 20.00" },
+    { day: "Outlet Dempel — Muktiharjo Kidul", time: "Setiap hari · 07.00 – 21.00" },
   ],
 } as const;
 
@@ -42,6 +43,9 @@ export const SITE = {
  * section "Lokasi Outlet" di homepage, halaman khusus /outlet/[slug]/,
  * sitemap.xml, dan JSON-LD LocalBusiness per outlet.
  */
+/** Hari operasional semua outlet — buka setiap hari. */
+export const OPEN_DAYS = "Setiap Hari (Senin – Minggu)";
+
 export const OUTLETS = [
   {
     slug: "malangsari",
@@ -51,6 +55,13 @@ export const OUTLETS = [
     district: "Pedurungan",
     streetAddress: "Jl. Malangsari No. 22",
     postalCode: "50196",
+    /** Nomor outlet — format tampilan & internasional (tel:/wa.me) */
+    phoneDisplay: "0851-1754-1083",
+    phoneIntl: "+6285117541083",
+    /** Jam operasional outlet (WIB) — buka setiap hari */
+    openHour: 7,
+    closeHour: 22,
+    hoursDisplay: "07.00 – 22.00",
     landmark: null,
     addressLines: [
       "Jl. Malangsari No. 22",
@@ -76,6 +87,11 @@ export const OUTLETS = [
     district: "Pedurungan",
     streetAddress: "Jl. Sendangguwo Selatan No. 24",
     postalCode: "50246",
+    phoneDisplay: "0851-3747-3412",
+    phoneIntl: "+6285137473412",
+    openHour: 8,
+    closeHour: 20,
+    hoursDisplay: "08.00 – 20.00",
     landmark: null,
     addressLines: [
       "Jl. Sendangguwo Selatan No. 24",
@@ -101,6 +117,11 @@ export const OUTLETS = [
     district: "Pedurungan",
     streetAddress: "Jl. Dempel Mukti Raya",
     postalCode: "50173",
+    phoneDisplay: "0851-3747-3409",
+    phoneIntl: "+6285137473409",
+    openHour: 7,
+    closeHour: 21,
+    hoursDisplay: "07.00 – 21.00",
     landmark: "Depan SMP Walisongo",
     addressLines: [
       "Jl. Dempel Mukti Raya — Depan SMP Walisongo",
@@ -137,11 +158,44 @@ export function outletMapsEmbedUrl(outlet: Outlet): string {
   return `https://www.google.com/maps?q=${encodeURIComponent(outlet.mapsQuery)}&hl=id&output=embed`;
 }
 
-/** Link WhatsApp dengan pesan spesifik outlet. */
+/** Link WhatsApp dengan pesan spesifik outlet — langsung ke NOMOR OUTLET tsb. */
 export function outletWaLink(outlet: Outlet): string {
-  return waLink(
+  const waNumber = outlet.phoneIntl.replace("+", "");
+  return `https://wa.me/${waNumber}?text=${encodeURIComponent(
     `Halo ${outlet.name}! Saya mau pesan laundry area ${outlet.area}, ${outlet.district}, Semarang.`
-  );
+  )}`;
+}
+
+/** Link tel: untuk telepon langsung ke outlet. */
+export function outletTelLink(outlet: Outlet): string {
+  return `tel:${outlet.phoneIntl}`;
+}
+
+/** Apakah outlet sedang buka? (dihitung di browser — buka setiap hari) */
+export function isOpenNow(outlet: Outlet, now: Date = new Date()): boolean {
+  const t = now.getHours() + now.getMinutes() / 60;
+  return t >= outlet.openHour && t < outlet.closeHour;
+}
+
+/** Label jam buka format HH:00 untuk JSON-LD. */
+export function outletHoursSpec(outlet: Outlet) {
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: `${pad(outlet.openHour)}:00`,
+      closes: `${pad(outlet.closeHour)}:00`,
+    },
+  ];
 }
 
 export const NAV_LINKS = [
@@ -453,11 +507,11 @@ export type Testimonial = (typeof TESTIMONIALS)[number];
 export const FAQS = [
   {
     q: "Jam operasional Samara Green Laundry kapan saja?",
-    a: "Kami buka Senin–Sabtu pukul 07.00–21.00 WIB dan Minggu pukul 08.00–18.00 WIB. Untuk layanan kilat, sebaiknya pesan maksimal 4 jam sebelum jam tutup.",
+    a: "Kami buka SETIAP HARI, Senin–Minggu. Jam per outlet: Malangsari 07.00–22.00, Sendangguwo 08.00–20.00, dan Dempel 07.00–21.00 WIB. Untuk layanan Kilat Express, sebaiknya pesan maksimal 4 jam sebelum jam tutup outlet.",
   },
   {
     q: "Area mana saja yang tercakup layanan antar-jemput?",
-    a: "Antar-jemput gratis untuk area terdekat sekitar Jl. Samara Indah dan radius 5 km. Di luar radius tersedia dengan biaya tambahan kecil — cukup konfirmasi lewat WhatsApp.",
+    a: "Antar-jemput gratis untuk area sekitar outlet kami di Tlogosari Kulon (Malangsari), Sendangguwo/Gemah, dan Muktiharjo Kidul/Dempel — radius ±5 km. Di luar radius tersedia dengan biaya tambahan kecil — cukup konfirmasi lewat WhatsApp.",
   },
   {
     q: "Berapa lama proses pencucian sampai selesai?",

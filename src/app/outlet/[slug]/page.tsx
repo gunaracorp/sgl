@@ -16,12 +16,16 @@ import { Button } from "@/components/ui/button";
 import { FloatingWhatsapp } from "@/components/landing/floating-whatsapp";
 import { Footer } from "@/components/landing/footer";
 import { Navbar } from "@/components/landing/navbar";
+import { OpenNowBadge } from "@/components/landing/open-now-badge";
 import { Reveal } from "@/components/landing/reveal";
 import {
   getOutlet,
+  OPEN_DAYS,
   OUTLETS,
+  outletHoursSpec,
   outletMapsEmbedUrl,
   outletMapsUrl,
+  outletTelLink,
   outletWaLink,
   PRICE_RANGE,
   SERVICE_TITLES,
@@ -47,7 +51,7 @@ export async function generateMetadata({
   if (!outlet) return {};
 
   const title = `Laundry ${outlet.area} ${outlet.district} Semarang — ${outlet.name}`;
-  const description = `${outlet.description} Buka Senin–Sabtu 07.00–21.00. Telepon/WhatsApp ${SITE.phoneDisplay}.`;
+  const description = `${outlet.description} Buka setiap hari ${outlet.hoursDisplay} WIB. Telepon/WhatsApp ${outlet.phoneDisplay}.`;
 
   return {
     title,
@@ -88,7 +92,7 @@ function OutletJsonLd({ slug }: { slug: string }) {
       parentOrganization: { "@id": `${SITE_URL}/#business` },
       description: outlet.description,
       url: outletUrl,
-      telephone: SITE.phoneIntl,
+      telephone: outlet.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/favicon.svg`,
       priceRange: PRICE_RANGE,
@@ -106,20 +110,7 @@ function OutletJsonLd({ slug }: { slug: string }) {
         "@type": "Place",
         name,
       })),
-      openingHoursSpecification: [
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-          opens: "07:00",
-          closes: "21:00",
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: "Sunday",
-          opens: "08:00",
-          closes: "18:00",
-        },
-      ],
+      openingHoursSpecification: outletHoursSpec(outlet),
     },
     {
       "@type": "BreadcrumbList",
@@ -209,6 +200,23 @@ export default async function OutletPage({ params }: { params: Params }) {
                   </span>
                 </address>
 
+                {/* Status buka + jam + telepon outlet */}
+                <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+                  <OpenNowBadge outlet={outlet} />
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-stone-600">
+                    <Clock className="size-4 text-emerald-600" aria-hidden />
+                    {outlet.hoursDisplay} WIB · {OPEN_DAYS}
+                  </span>
+                  <a
+                    href={outletTelLink(outlet)}
+                    className="inline-flex items-center gap-1.5 text-sm font-extrabold text-emerald-700 transition-colors hover:text-emerald-600"
+                    aria-label={`Telepon ${outlet.name} di ${outlet.phoneDisplay}`}
+                  >
+                    <Phone className="size-4 text-emerald-600" aria-hidden />
+                    {outlet.phoneDisplay}
+                  </a>
+                </div>
+
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Button asChild className="h-12 rounded-full px-6 shadow-md shadow-emerald-900/20">
                     <a href={outletWaLink(outlet)} target="_blank" rel="noopener noreferrer">
@@ -292,16 +300,17 @@ export default async function OutletPage({ params }: { params: Params }) {
                       Jam Buka
                     </h2>
                     <div className="mt-4 space-y-2.5">
-                      {SITE.hours.map((row) => (
-                        <div
-                          key={row.day}
-                          className="flex items-center justify-between border-b border-dashed border-stone-200 pb-2.5 text-sm last:border-none last:pb-0"
-                        >
-                          <span className="font-medium text-stone-600">{row.day}</span>
-                          <span className="font-bold text-emerald-950">{row.time}</span>
-                        </div>
-                      ))}
+                      <div className="flex items-center justify-between border-b border-dashed border-stone-200 pb-2.5 text-sm">
+                        <span className="font-medium text-stone-600">{OPEN_DAYS}</span>
+                        <span className="font-bold text-emerald-950">{outlet.hoursDisplay}</span>
+                      </div>
                     </div>
+                    <div className="mt-4">
+                      <OpenNowBadge outlet={outlet} />
+                    </div>
+                    <p className="mt-3 text-xs text-stone-400">
+                      *Waktu Indonesia Barat (WIB) — termasuk akhir pekan
+                    </p>
                   </div>
                 </Reveal>
                 <Reveal delay={0.15}>
@@ -311,17 +320,35 @@ export default async function OutletPage({ params }: { params: Params }) {
                       Kontak Outlet
                     </h2>
                     <a
-                      href={`tel:${SITE.phoneIntl}`}
+                      href={outletTelLink(outlet)}
                       className="mt-3 block text-xl font-extrabold text-emerald-700 transition-colors hover:text-emerald-600"
                     >
-                      {SITE.phoneDisplay}
+                      {outlet.phoneDisplay}
                     </a>
-                    <Button asChild className="mt-4 h-11 w-full rounded-full">
-                      <a href={outletWaLink(outlet)} target="_blank" rel="noopener noreferrer">
-                        <MessageCircle aria-hidden />
-                        Chat Outlet Ini
-                      </a>
-                    </Button>
+                    <p className="mt-1 text-xs font-medium text-stone-500">
+                      Telepon atau WhatsApp langsung ke outlet {outlet.shortName}
+                    </p>
+                    <div className="mt-4 grid gap-2">
+                      <Button asChild className="h-11 w-full rounded-full">
+                        <a href={outletWaLink(outlet)} target="_blank" rel="noopener noreferrer">
+                          <MessageCircle aria-hidden />
+                          Chat Outlet Ini
+                        </a>
+                      </Button>
+                      <Button
+                        asChild
+                        variant="outline"
+                        className="h-11 w-full rounded-full border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                      >
+                        <a
+                          href={outletTelLink(outlet)}
+                          aria-label={`Telepon ${outlet.name} di ${outlet.phoneDisplay}`}
+                        >
+                          <Phone aria-hidden />
+                          Telepon Outlet
+                        </a>
+                      </Button>
+                    </div>
                   </div>
                 </Reveal>
               </div>
@@ -343,23 +370,47 @@ export default async function OutletPage({ params }: { params: Params }) {
             <div className="mt-10 grid gap-5 sm:grid-cols-2">
               {others.map((other, index) => (
                 <Reveal key={other.slug} delay={index * 0.1}>
-                  <a
-                    href={`/outlet/${other.slug}/`}
+                  <article
                     className="group flex h-full items-start justify-between gap-4 rounded-3xl border border-emerald-900/10 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/60 hover:shadow-xl hover:shadow-emerald-900/10"
                   >
                     <div>
-                      <h3 className="text-lg font-extrabold text-emerald-950">
-                        {other.name}
-                      </h3>
-                      <p className="mt-2 flex items-start gap-2 text-sm text-stone-600">
-                        <MapPin className="mt-0.5 size-4 shrink-0 text-emerald-600" aria-hidden />
-                        {other.addressLines.join(", ")}
+                      <a
+                        href={`/outlet/${other.slug}/`}
+                        className="block"
+                        aria-label={`Lihat halaman ${other.name}`}
+                      >
+                        <h3 className="text-lg font-extrabold text-emerald-950">
+                          {other.name}
+                        </h3>
+                        <p className="mt-2 flex items-start gap-2 text-sm text-stone-600">
+                          <MapPin className="mt-0.5 size-4 shrink-0 text-emerald-600" aria-hidden />
+                          {other.addressLines.join(", ")}
+                        </p>
+                      </a>
+                      <p className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs font-semibold text-stone-500">
+                        <span className="inline-flex items-center gap-1.5">
+                          <Clock className="size-3.5 text-emerald-600" aria-hidden />
+                          {other.hoursDisplay} · Setiap hari
+                        </span>
+                        <a
+                          href={outletTelLink(other)}
+                          className="inline-flex items-center gap-1.5 text-emerald-700 transition-colors hover:text-emerald-600"
+                          aria-label={`Telepon ${other.name} di ${other.phoneDisplay}`}
+                        >
+                          <Phone className="size-3.5 text-emerald-600" aria-hidden />
+                          {other.phoneDisplay}
+                        </a>
                       </p>
                     </div>
-                    <span className="grid size-10 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 transition-all group-hover:bg-emerald-600 group-hover:text-white">
+                    <a
+                      href={`/outlet/${other.slug}/`}
+                      aria-hidden
+                      tabIndex={-1}
+                      className="grid size-10 shrink-0 place-items-center rounded-full bg-emerald-50 text-emerald-600 transition-all group-hover:bg-emerald-600 group-hover:text-white"
+                    >
                       <ArrowRight className="size-5" aria-hidden />
-                    </span>
-                  </a>
+                    </a>
+                  </article>
                 </Reveal>
               ))}
             </div>

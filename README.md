@@ -259,14 +259,20 @@ Masih di file yang sama — **`src/lib/site.ts`**:
 export const SITE = {
   name: "Samara Green Laundry",
   tagline: "Laundry Bersih, Segar & Ramah Lingkungan",
-  address: "Jl. Samara Indah No. 88, Indonesia",   // ← ganti alamat asli
+  address: "Jl. Malangsari No. 22, Tlogosari Kulon, Pedurungan, Semarang",
   mapsUrl: "https://...",                          // ← link Google Maps
-  hours: [
-    { day: "Senin – Sabtu", time: "07.00 – 21.00 WIB" },
-    { day: "Minggu", time: "08.00 – 18.00 WIB" },
+  hours: [                                         // ← jam per outlet (tampil di Kontak)
+    { day: "Outlet Malangsari — Tlogosari Kulon", time: "Setiap hari · 07.00 – 22.00" },
+    { day: "Outlet Sendangguwo — Gemah", time: "Setiap hari · 08.00 – 20.00" },
+    { day: "Outlet Dempel — Muktiharjo Kidul", time: "Setiap hari · 07.00 – 21.00" },
   ],
 };
 ```
+
+> 💡 **Nomor telepon & jam per outlet** diatur di `OUTLETS` (file yang sama):
+> `phoneDisplay` / `phoneIntl` / `hoursDisplay` / `openHour` / `closeHour` —
+> otomatis dipakai di kartu outlet, halaman /outlet/, JSON-LD, dan badge
+> "Buka Sekarang" yang live di browser.
 
 ### 💰 Ganti Harga & Layanan
 

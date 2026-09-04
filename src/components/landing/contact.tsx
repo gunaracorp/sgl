@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { SITE, SOCIAL_LINKS, waLink, WA_DEFAULT_LINK } from "@/lib/site";
+import { OUTLETS, SITE, SOCIAL_LINKS, waLink, WA_DEFAULT_LINK } from "@/lib/site";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 import { TikTokIcon } from "./tiktok-icon";
@@ -114,7 +114,7 @@ export function Contact() {
                 ))}
               </div>
               <p className="mt-4 text-xs text-stone-400">
-                *Waktu Indonesia Barat (WIB)
+                *Waktu Indonesia Barat (WIB) — jam berbeda tiap outlet
               </p>
             </div>
           </Reveal>
@@ -129,10 +129,28 @@ export function Contact() {
               </h3>
               <a
                 href={`tel:${SITE.phoneIntl}`}
-                className="mt-2 flex-1 text-xl font-extrabold tracking-tight text-emerald-700 transition-colors hover:text-emerald-600"
+                className="mt-2 text-xl font-extrabold tracking-tight text-emerald-700 transition-colors hover:text-emerald-600"
               >
                 {SITE.phoneDisplay}
               </a>
+              {/* Nomor langsung tiap outlet */}
+              <div className="mt-3 flex-1 space-y-1.5">
+                {OUTLETS.map((outlet) => (
+                  <a
+                    key={outlet.slug}
+                    href={`tel:${outlet.phoneIntl}`}
+                    className="flex items-center justify-between gap-2 rounded-xl border border-stone-200/80 bg-stone-50/60 px-3 py-2 text-sm transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+                    aria-label={`Telepon outlet ${outlet.shortName} di ${outlet.phoneDisplay}`}
+                  >
+                    <span className="font-semibold text-stone-700">
+                      Outlet {outlet.shortName}
+                    </span>
+                    <span className="font-bold text-emerald-700">
+                      {outlet.phoneDisplay}
+                    </span>
+                  </a>
+                ))}
+              </div>
               <Button asChild className="mt-4 h-11 w-fit rounded-full">
                 <a
                   href={WA_DEFAULT_LINK}

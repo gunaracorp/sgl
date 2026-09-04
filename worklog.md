@@ -230,3 +230,30 @@ Work Log:
 Stage Summary:
 - Kartu Kiloan Reguler & Premium Satuan kini sameleving dgn Kilat Express & Paket Hemat: ikon, badge harga, centang solid, tombol hijau solid — tampilan section Harga seragam & premium
 - Harga tidak berubah (6.500/12.000/20.000 + hemat 1.000/2.500/4.500); out/ + ZIP siap upload
+
+---
+Task ID: 16
+Agent: main orchestrator (Z.ai Code)
+Task: Update jam operasional & nomor telepon per outlet (buka setiap hari) + badge live "Buka Sekarang"
+
+Work Log:
+- site.ts: OUTLETS kini punya phoneDisplay/phoneIntl (Malangsari 0851-1754-1083, Sendangguwo 0851-3747-3412, Dempel 0851-3747-3409) + openHour/closeHour/hoursDisplay per outlet; konstanta OPEN_DAYS "Setiap Hari (Senin – Minggu)"
+- Helper baru: outletWaLink kini ke NOMOR OUTLET sendiri, outletTelLink (tel:), isOpenNow (hitung buka/tutup di browser), outletHoursSpec (JSON-LD Mo–Su per outlet)
+- SITE.hours jadi 3 baris per outlet (tampil di kartu Kontak); FAQ #1 jawaban "buka SETIAP HARI + jam per outlet"; FAQ #2 antar-jemput kini sebut 3 area outlet (hapus placeholder lama Jl. Samara Indah)
+- Komponen BARU open-now-badge.tsx: badge live "Buka Sekarang" (hijau pulse) / "Tutup · buka 07.00" — hydration-safe (null saat SSR, interval refresh 60 detik)
+- outlets.tsx: jam asli per outlet + badge live + telepon klik-call; tombol Chat Outlet → WA nomor outlet tsb
+- outlet/[slug]/page.tsx: hero tampil badge + jam + telepon; kartu Jam Buka per outlet; Kontak Outlet pakai nomor outlet + tombol Telepon Outlet; kartu Outlet Lainnya + jam & telepon; metadata description "Buka setiap hari [jam] WIB. Telepon/WhatsApp [nomor outlet]"; JSON-LD telephone + openingHours per outlet
+- FIX: nested anchor invalid di kartu "Outlet Lainnya" (a dalam a) → restructure jadi article + anchor terpisah; verifikasi ulang 0 error
+- json-ld.tsx: bisnis utama buka 7 hari 07:00–22:00; tiap outlet telephone + openingHoursSpecification 7 hari sesuai jamnya
+- footer.tsx: direktori telepon outlet (link tel: per nomor) + "Buka Setiap Hari" + jam ketiga outlet
+- contact.tsx: kartu Telepon & WhatsApp tampil direktori 3 nomor outlet (klik-call); announcement bar "Buka Setiap Hari · Gratis Antar-Jemput"
+- README.md: contoh hours per outlet + panduan edit nomor/jam di OUTLETS
+- Debugging build: ReferenceError SITE (import kehapus di outlets.tsx) → ditambahkan kembali; lint 0 error; build 9/9 statis
+- Verifikasi browser (desktop 1280 + mobile 390): kartu outlet tampil jam+badge+telepon, Chat Outlet → wa.me nomor outlet benar (6285117541083/6285137473412/6285137473409), badge menampilkan "Tutup · buka 07.00" sesuai jam sandbox, kontak & footer direktori lengkap, FAQ accordion jawaban baru, halaman outlet hydrated tanpa error console
+- Rebuild final: out/ 3.3MB + samara-green-laundry-website.zip 1.9MB; verifikasi statis node: 3 nomor telepon + 3 wa.me outlet + "Buka Setiap Hari" + FAQ + JSON-LD (telephone per outlet, 7 hari per outlet) + 3 halaman outlet (tel:, setiap hari, tanpa nested anchor) semua OK
+
+Stage Summary:
+- Jam operasional resmi: buka SETIAP HARI — Malangsari 07.00–22.00, Sendangguwo 08.00–20.00, Dempel 07.00–21.00 WIB, masing-masing dengan nomor WhatsApp/telepon sendiri
+- Super ideas live: badge status buka/tutup REAL-TIME per outlet, klik-to-call & WA langsung ke outlet tujuan, JSON-LD jam buka 7 hari per outlet (rich snippet "Open daily"), direktori telepon di Kontak & Footer, FAQ & announcement bar sinkron
+- Sumber tunggal tetap OUTLETS di site.ts — ganti nomor/jam cukup sekali, menyebar ke UI, WA, tel:, JSON-LD, dan badge
+- out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html

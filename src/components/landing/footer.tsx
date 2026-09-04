@@ -131,13 +131,20 @@ export function Footer() {
                   {SITE.address}
                   <ul className="mt-2.5 space-y-1.5">
                     {OUTLETS.map((outlet) => (
-                      <li key={outlet.slug}>
+                      <li key={outlet.slug} className="text-emerald-100/80">
                         <a
                           href={`/outlet/${outlet.slug}/`}
-                          className="inline-flex items-center gap-1.5 text-emerald-100/80 transition-colors hover:text-lime-300"
+                          className="inline-flex items-center gap-1.5 transition-colors hover:text-lime-300"
                         >
                           <span aria-hidden className="text-[10px]">▸</span>
                           Outlet {outlet.shortName} — {outlet.area}
+                        </a>{" "}
+                        <a
+                          href={`tel:${outlet.phoneIntl}`}
+                          className="font-semibold text-emerald-100/60 transition-colors hover:text-lime-300"
+                          aria-label={`Telepon outlet ${outlet.shortName} di ${outlet.phoneDisplay}`}
+                        >
+                          · {outlet.phoneDisplay}
                         </a>
                       </li>
                     ))}
@@ -162,9 +169,13 @@ export function Footer() {
                   aria-hidden
                 />
                 <span>
-                  Senin–Sabtu 07.00–21.00
+                  <strong className="font-bold text-emerald-100">
+                    Buka Setiap Hari
+                  </strong>
                   <br />
-                  Minggu 08.00–18.00
+                  Malangsari 07.00–22.00 · Sendangguwo 08.00–20.00
+                  <br />
+                  Dempel 07.00–21.00 (WIB)
                 </span>
               </li>
             </ul>
