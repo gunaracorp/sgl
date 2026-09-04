@@ -6,8 +6,10 @@ import {
   Check,
   Droplets,
   Layers,
+  Sparkles,
   Truck,
   WashingMachine,
+  Zap,
   type LucideIcon,
 } from "lucide-react";
 
@@ -26,13 +28,14 @@ type Plan = {
   features: string[];
   featured?: boolean;
   cta: string;
+  icon: LucideIcon;
 };
 
 const PLANS: Plan[] = [
   {
     name: "Kiloan Reguler",
     desc: "Cuci kering + setrika untuk kebutuhan harian keluarga.",
-    prefix: "mulai",
+    prefix: "mulai dari",
     price: "Rp 6.500",
     unit: "/kg",
     features: [
@@ -42,7 +45,8 @@ const PLANS: Plan[] = [
       "Pewangi standar premium",
       "Gratis antar-jemput area terdekat",
     ],
-    cta: "Pilih Reguler",
+    cta: "Pesan Reguler",
+    icon: WashingMachine,
   },
   {
     name: "Kilat Express",
@@ -59,11 +63,12 @@ const PLANS: Plan[] = [
     ],
     featured: true,
     cta: "Pesan Kilat Express",
+    icon: Zap,
   },
   {
     name: "Premium Satuan",
     desc: "Perawatan khusus untuk item berharga.",
-    prefix: "mulai",
+    prefix: "mulai dari",
     price: "Rp 20.000",
     unit: "/item",
     features: [
@@ -74,10 +79,11 @@ const PLANS: Plan[] = [
       "Garansi cuci ulang 100%",
     ],
     cta: "Pesan Premium",
+    icon: Sparkles,
   },
 ];
 
-/** 3 pricing cards, middle one featured ("Paling Laris"). */
+/** 3 pricing cards (middle one featured "Paling Laris") + strip Paket Hemat. */
 export function Pricing() {
   return (
     <section id="harga" className="py-20 lg:py-28">
@@ -94,123 +100,143 @@ export function Pricing() {
         />
 
         <div className="mt-16 grid items-stretch gap-8 lg:grid-cols-3">
-          {PLANS.map((plan, i) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: "easeOut" }}
-              whileHover={{ y: -6 }}
-              className={cn(
-                "relative flex flex-col rounded-3xl border p-8 transition-shadow duration-300",
-                plan.featured
-                  ? "border-emerald-600 bg-gradient-to-b from-emerald-600 to-emerald-700 text-white shadow-2xl shadow-emerald-900/30 lg:scale-[1.04]"
-                  : "border-stone-200/80 bg-card shadow-sm hover:shadow-xl hover:shadow-emerald-900/10"
-              )}
-            >
-              {plan.featured ? (
-                <span className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-lime-400 px-4 py-1.5 text-xs font-extrabold uppercase tracking-wider text-emerald-950 shadow-lg">
-                  ⭐ Paling Laris
-                </span>
-              ) : null}
-
-              <h3
+          {PLANS.map((plan, i) => {
+            const Icon = plan.icon;
+            return (
+              <motion.div
+                key={plan.name}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: "easeOut" }}
+                whileHover={{ y: -6 }}
                 className={cn(
-                  "text-lg font-extrabold",
-                  plan.featured ? "text-white" : "text-emerald-950"
+                  "relative flex flex-col rounded-3xl border p-8 transition-shadow duration-300",
+                  plan.featured
+                    ? "border-emerald-600 bg-gradient-to-b from-emerald-600 to-emerald-700 text-white shadow-2xl shadow-emerald-900/30 lg:scale-[1.04]"
+                    : "border-stone-200/80 bg-card shadow-sm hover:shadow-xl hover:shadow-emerald-900/10"
                 )}
               >
-                {plan.name}
-              </h3>
-              <p
-                className={cn(
-                  "mt-1 text-sm",
-                  plan.featured ? "text-emerald-50/80" : "text-stone-500"
-                )}
-              >
-                {plan.desc}
-              </p>
-
-              <div className="mt-6 flex items-baseline gap-1.5">
-                {plan.prefix ? (
-                  <span
-                    className={cn(
-                      "text-sm font-semibold",
-                      plan.featured ? "text-emerald-50/80" : "text-stone-500"
-                    )}
-                  >
-                    {plan.prefix}
+                {plan.featured ? (
+                  <span className="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-lime-400 px-4 py-1.5 text-xs font-extrabold uppercase tracking-wider text-emerald-950 shadow-lg">
+                    ⭐ Paling Laris
                   </span>
                 ) : null}
-                <span
-                  className={cn(
-                    "text-4xl font-extrabold tracking-tight sm:text-[2.75rem]",
-                    plan.featured ? "text-white" : "text-emerald-950"
-                  )}
-                >
-                  {plan.price}
-                </span>
-                <span
-                  className={cn(
-                    "text-sm font-bold",
-                    plan.featured ? "text-emerald-100/80" : "text-stone-500"
-                  )}
-                >
-                  {plan.unit}
-                </span>
-              </div>
 
-              <ul
-                className="mt-7 flex-1 space-y-3"
-                aria-label={`Fitur paket ${plan.name}`}
-              >
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2.5">
+                {/* Header: ikon + nama */}
+                <div className="flex items-center gap-3">
+                  <span
+                    className={cn(
+                      "grid size-11 shrink-0 place-items-center rounded-2xl",
+                      plan.featured
+                        ? "bg-lime-400 text-emerald-950 shadow-md shadow-emerald-900/20"
+                        : "bg-emerald-100 text-emerald-700"
+                    )}
+                  >
+                    <Icon className="size-5.5" aria-hidden />
+                  </span>
+                  <h3
+                    className={cn(
+                      "text-lg font-extrabold leading-tight",
+                      plan.featured ? "text-white" : "text-emerald-950"
+                    )}
+                  >
+                    {plan.name}
+                  </h3>
+                </div>
+                <p
+                  className={cn(
+                    "mt-2 text-sm",
+                    plan.featured ? "text-emerald-50/80" : "text-stone-500"
+                  )}
+                >
+                  {plan.desc}
+                </p>
+
+                {/* Harga: badge "mulai dari" rapi di atas angka */}
+                <div className="mt-6">
+                  {plan.prefix ? (
                     <span
                       className={cn(
-                        "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
+                        "mb-2 inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wider",
                         plan.featured
-                          ? "bg-lime-400 text-emerald-950"
-                          : "bg-emerald-100 text-emerald-700"
+                          ? "bg-white/15 text-lime-300"
+                          : "bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/70"
                       )}
                     >
-                      <Check className="size-3" strokeWidth={3} aria-hidden />
+                      {plan.prefix}
+                    </span>
+                  ) : null}
+                  <div className="flex items-baseline gap-1.5">
+                    <span
+                      className={cn(
+                        "text-4xl font-extrabold tracking-tight sm:text-[2.75rem]",
+                        plan.featured ? "text-white" : "text-emerald-950"
+                      )}
+                    >
+                      {plan.price}
                     </span>
                     <span
                       className={cn(
-                        "text-sm",
-                        plan.featured ? "text-emerald-50/90" : "text-stone-600"
+                        "text-sm font-bold",
+                        plan.featured ? "text-emerald-100/80" : "text-stone-500"
                       )}
                     >
-                      {feature}
+                      {plan.unit}
                     </span>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                </div>
 
-              <Button
-                asChild
-                className={cn(
-                  "mt-8 h-12 w-full rounded-full text-base font-bold",
-                  plan.featured
-                    ? "bg-white text-emerald-700 shadow-lg hover:bg-lime-50"
-                    : "shadow-md shadow-emerald-900/10"
-                )}
-                variant={plan.featured ? "default" : "outline"}
-              >
-                <a
-                  href={waLink(
-                    `Halo Samara Green Laundry! Saya mau pesan paket ${plan.name} (${plan.prefix ? plan.prefix + " " : ""}${plan.price}${plan.unit}).`
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <ul
+                  className="mt-7 flex-1 space-y-3"
+                  aria-label={`Fitur paket ${plan.name}`}
                 >
-                  {plan.cta}
-                </a>
-              </Button>
-            </motion.div>
-          ))}
+                  {plan.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2.5">
+                      <span
+                        className={cn(
+                          "mt-0.5 grid size-5 shrink-0 place-items-center rounded-full",
+                          plan.featured
+                            ? "bg-lime-400 text-emerald-950"
+                            : "bg-emerald-600 text-white"
+                        )}
+                      >
+                        <Check className="size-3" strokeWidth={3} aria-hidden />
+                      </span>
+                      <span
+                        className={cn(
+                          "text-sm",
+                          plan.featured ? "text-emerald-50/90" : "text-stone-600"
+                        )}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button
+                  asChild
+                  className={cn(
+                    "mt-8 h-12 w-full rounded-full text-base font-bold transition-colors duration-300",
+                    plan.featured
+                      ? "bg-white text-emerald-700 shadow-lg hover:bg-lime-50"
+                      : "bg-emerald-600 text-white shadow-md shadow-emerald-900/20 hover:bg-emerald-700 hover:shadow-lg"
+                  )}
+                >
+                  <a
+                    href={waLink(
+                      `Halo Samara Green Laundry! Saya mau pesan paket ${plan.name} (${plan.prefix ? plan.prefix + " " : ""}${plan.price}${plan.unit}).`
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {plan.cta}
+                  </a>
+                </Button>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Paket hemat: layanan kiloan tanpa setrika (dari BUDGET_PLANS) */}

@@ -215,3 +215,18 @@ Stage Summary:
 - Section testimoni kini 21 ulasan realistis dalam 3 baris marquee premium (hover pause, reduced-motion aman)
 - Data terpusat di TESTIMONIALS (site.ts) — tambah/edit ulasan cukup satu tempat
 - out/ + samara-green-laundry-website.zip diperbarui, siap upload
+
+---
+Task ID: 15
+Agent: main orchestrator (Z.ai Code)
+Task: Rapihkan kartu harga Kiloan Reguler & Premium Satuan agar konsisten/sepremium kartu lain
+
+Work Log:
+- pricing.tsx restyle total (konten harga tidak berubah): header kartu kini berikon chip rounded-2xl (WashingMachine/Zap/Sparkles, emerald-100 — chip lime utk featured, sama pola dgn kartu Paket Hemat & layanan); prefix "mulai" yg tadinya inline mepet angka diganti badge pill uppercase "MULAI DARI" di atas harga (ring emerald utk card putih, bg-white/15 text-lime-300 utk featured); ikon centang feature diganti solid emerald-600 putih (featured tetap lime); tombol CTA kartu non-featured dari outline pudar jadi solid emerald-600 putih (hover emerald-700); CTA "Pilih Reguler" → "Pesan Reguler" biar seragam ("Pesan ...")
+- Pesan WA ikut prefix baru: "paket Kiloan Reguler (mulai dari Rp 6.500/kg)", "(mulai dari Rp 20.000/item)"
+- Lint 0 error; verifikasi browser dev :3000 (desktop 1280 + mobile 390): 3 kartu seragam, badge rapi, CTA premium, Paket Hemat strip tetap utuh; link wa.me/628134506007 benar utk 3 paket
+- Rebuild: out/ 3.2MB + samara-green-laundry-website.zip 1.8MB; verifikasi statis out/index.html (2 badge "mulai dari", harga 6.500/20.000/1.000 OK, priceRange Rp1.000 - Rp35.000) + serve http.server 4173 → section #harga identik & hydrated (23 link WA)
+
+Stage Summary:
+- Kartu Kiloan Reguler & Premium Satuan kini sameleving dgn Kilat Express & Paket Hemat: ikon, badge harga, centang solid, tombol hijau solid — tampilan section Harga seragam & premium
+- Harga tidak berubah (6.500/12.000/20.000 + hemat 1.000/2.500/4.500); out/ + ZIP siap upload
