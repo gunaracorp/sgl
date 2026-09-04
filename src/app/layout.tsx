@@ -25,6 +25,9 @@ export const metadata: Metadata = {
     "cuci sepatu",
   ],
   authors: [{ name: "Samara Green Laundry" }],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     title: "Samara Green Laundry — Laundry Bersih, Segar & Ramah Lingkungan",
     description:

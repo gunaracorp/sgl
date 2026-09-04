@@ -1,8 +1,21 @@
+/**
+ * PUSAT KONFIGURASI WEBSITE SAMARA GREEN LAUNDRY
+ * ------------------------------------------------
+ * Ganti semua data bisnis di file ini — seluruh halaman
+ * (navbar, hero, harga, kontak, footer, tombol WhatsApp)
+ * otomatis ikut berubah. Tidak perlu edit file lain!
+ */
+
+/** Nomor WhatsApp format internasional TANPA tanda + (untuk link wa.me) */
+export const WHATSAPP_NUMBER = "628134506007";
+
 export const SITE = {
   name: "Samara Green Laundry",
   tagline: "Laundry Bersih, Segar & Ramah Lingkungan",
-  phoneDisplay: "0813-4754-7944",
-  phoneIntl: "+6281347547944",
+  /** Nomor kontak person — ditampilkan di website */
+  phoneDisplay: "0821-3450-6007",
+  /** Nomor internasional untuk link tel: */
+  phoneIntl: "+628134506007",
   address: "Jl. Samara Indah No. 88, Indonesia",
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Jl.+Samara+Indah+No.+88+Indonesia",
@@ -33,9 +46,18 @@ export const SERVICE_TITLES = [
 
 /** Build a WhatsApp deep link with a properly URL-encoded prefilled message. */
 export function waLink(message: string): string {
-  return `https://wa.me/6281347547944?text=${encodeURIComponent(message)}`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 export const WA_DEFAULT_LINK: string = waLink(
   "Halo Samara Green Laundry! Saya mau pesan layanan laundry."
 );
+
+/** Kredit desainer website — ditampilkan di footer. */
+export const DESIGN_CREDIT = {
+  company: "PT Digital Bisnis Manajemen",
+  sites: [
+    { label: "digiman.id", url: "https://digiman.id" },
+    { label: "juraganwebsite.web.id", url: "https://juraganwebsite.web.id" },
+  ],
+} as const;

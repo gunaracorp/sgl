@@ -1,6 +1,6 @@
 import { Facebook, Instagram, Leaf, MapPin, MessageCircle, Phone } from "lucide-react";
 
-import { NAV_LINKS, SERVICE_TITLES, SITE, WA_DEFAULT_LINK } from "@/lib/site";
+import { DESIGN_CREDIT, NAV_LINKS, SERVICE_TITLES, SITE, WA_DEFAULT_LINK } from "@/lib/site";
 
 /** Dark forest-green footer, sticks to bottom via mt-auto on the root wrapper. */
 export function Footer() {
@@ -133,7 +133,26 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-center text-xs sm:flex-row sm:text-left">
           <p>© 2025 {SITE.name}. Seluruh hak cipta dilindungi.</p>
-          <p>Dibuat dengan 💚 di Indonesia</p>
+          <p className="text-emerald-100/60">
+            Design by{" "}
+            <span className="font-semibold text-emerald-50">
+              {DESIGN_CREDIT.company}
+            </span>{" "}
+            —{" "}
+            {DESIGN_CREDIT.sites.map((site, index) => (
+              <span key={site.url}>
+                <a
+                  href={site.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-lime-400 transition-colors hover:text-lime-300 hover:underline"
+                >
+                  {site.label}
+                </a>
+                {index < DESIGN_CREDIT.sites.length - 1 ? " & " : ""}
+              </span>
+            ))}
+          </p>
         </div>
       </div>
     </footer>

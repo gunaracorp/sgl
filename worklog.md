@@ -57,3 +57,24 @@ Stage Summary:
 - Website LOADED & INTERACTIVE terverifikasi penuh via browser (desktop + mobile)
 - WhatsApp deep link end-to-end berfungsi (nomor 6281347547944)
 - Siap dipakai; placeholder alamat/sosmed bisa diganti di src/lib/site.ts
+
+---
+Task ID: 7
+Agent: main orchestrator (Z.ai Code)
+Task: Ganti nomor kontak, kredit desainer, dukungan shared hosting, README lengkap
+
+Work Log:
+- Ganti nomor kontak person: 0813-4754-7944 → 0821-3450-6007 (wa.me/628134506007), terpusat di src/lib/site.ts via konstanta WHATSAPP_NUMBER
+- Tambah DESIGN_CREDIT (PT Digital Bisnis Manajemen — digiman.id & juraganwebsite.web.id) di site.ts + render footer.tsx dengan link klikabel
+- Hapus src/app/api/route.ts (tidak didukung static export, tidak dipakai)
+- next.config.ts: output "export" + trailingSlash + images.unoptimized → build menghasilkan HTML statis murni di out/
+- Tambah public/.htaccess (ErrorDocument 404, gzip, browser caching, opsi force-HTTPS)
+- Buat public/favicon.svg (daun hijau) + update metadata icons di layout.tsx
+- package.json: build="next build", deploy="build+zip", zip, preview="serve out"
+- Tulis README.md lengkap (badges, TOC, fitur, struktur, 2 cara deploy cPanel: File Manager ZIP & FTP, sub-folder basePath, kustomisasi terpusat, SEO, troubleshooting, kredit)
+- Verifikasi browser: nomor baru tampil, nomor lama hilang, wa.me/628134506007 aktif, kredit footer tampil; lint exit 0; GET / 200
+
+Stage Summary:
+- Website 100% kompatibel shared hosting (statis murni): `npm run deploy` → upload samara-green-laundry-website.zip ke public_html → selesai
+- Kontak baru: 0821-3450-6007 di semua CTA WhatsApp + tel: + footer
+- Kredit desainer tampil di footer + README
