@@ -51,19 +51,20 @@ Website company profile laundry **premium, modern, dan full animasi** — siap d
 ### 📄 Section Website
 
 ```
-🏷️ Announcement Bar   →  Promo antar-jemput gratis
+🏷️ Announcement Bar   →  Buka setiap hari + antar-jemput gratis
 🧭 Navbar Sticky      →  Menu glass-blur + CTA WhatsApp
-🦸 Hero               →  Headline animasi + gambar profesional
+🦸 Hero               →  Headline animasi + badge Anggota Resmi ALDIN
 📊 Statistik          →  12.000+ cucian, rating 4.9 (count-up)
 🧺 Layanan            →  6 kartu layanan + harga
-🌱 Keunggulan         →  Eco-friendly, garansi, antar-jemput
+🌱 Keunggulan         →  Eco-friendly, garansi, antar-jemput + kartu membership ALDIN
 📦 Cara Pesan         →  4 langkah mudah
-💰 Harga              →  3 paket (Reguler / Kilat / Premium)
-💬 Testimoni          →  Ulasan pelanggan 5 bintang
+💰 Harga              →  3 paket + strip Paket Hemat (mulai Rp 1.000/kg)
+💬 Testimoni          →  21 ulasan pelanggan (3 baris marquee)
+📍 Lokasi Outlet      →  3 outlet + peta Google + jam & nomor per outlet
 ❓ FAQ                →  6 pertanyaan umum (accordion)
 📣 CTA Banner         →  Ajakan pesan sekarang
-📞 Kontak             →  Alamat, jam buka, form → WhatsApp
-🦶 Footer             →  Link lengkap + kredit desainer
+📞 Kontak             →  Alamat, direktori nomor outlet, form → WhatsApp
+🦶 Footer             →  Link lengkap + direktori telepon outlet + badge ALDIN
 💚 Tombol WA Floating →  Selalu siap di pojok layar
 ```
 
@@ -283,6 +284,7 @@ export const SITE = {
 | Paket harga lengkap | `src/components/landing/pricing.tsx` |
 | Pertanyaan FAQ | `src/components/landing/faq.tsx` |
 | Testimoni pelanggan (21 ulasan) | `src/lib/site.ts` → konstanta `TESTIMONIALS` — tampil otomatis sebagai 3 baris berjalan (marquee) di section testimoni |
+| Badge keanggotaan ALDIN | `src/lib/site.ts` → konstanta `ALDIN` — tampil otomatis di hero, section Keunggulan, footer & JSON-LD (memberOf) |
 
 ### 🖼️ Ganti Gambar
 

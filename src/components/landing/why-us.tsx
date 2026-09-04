@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
+  BadgeCheck,
   Clock,
   Droplets,
   Leaf,
@@ -11,6 +12,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { AldinCard } from "./aldin";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 
@@ -80,6 +82,27 @@ export function WhyUs() {
               </p>
             </div>
           </motion.div>
+
+          {/* Floating badge keanggotaan ALDIN */}
+          <motion.div
+            animate={reduced ? undefined : { y: [0, 9, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+            className="absolute -top-5 right-2 sm:-right-4"
+          >
+            <div className="flex items-center gap-2.5 rounded-2xl border border-white/60 bg-white/80 px-3.5 py-2.5 shadow-lg shadow-emerald-950/10 backdrop-blur-md">
+              <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 text-white">
+                <BadgeCheck className="size-5" aria-hidden />
+              </span>
+              <div>
+                <p className="text-[13px] font-extrabold leading-tight text-emerald-950">
+                  Anggota Resmi ALDIN
+                </p>
+                <p className="text-[11px] leading-tight text-stone-500">
+                  Asosiasi Laundry Digital Indonesia
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </Reveal>
 
         <div>
@@ -114,6 +137,11 @@ export function WhyUs() {
               </li>
             ))}
           </ul>
+
+          {/* Keanggotaan resmi ALDIN — kartu premium */}
+          <Reveal delay={0.45}>
+            <AldinCard />
+          </Reveal>
         </div>
       </div>
     </section>

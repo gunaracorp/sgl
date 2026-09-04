@@ -12,6 +12,7 @@ import {
   SOCIAL_LINKS,
   WA_DEFAULT_LINK,
 } from "@/lib/site";
+import { AldinPill } from "./aldin";
 import { TikTokIcon } from "./tiktok-icon";
 
 /** Dark forest-green footer, sticks to bottom via mt-auto on the root wrapper. */
@@ -38,6 +39,10 @@ export function Footer() {
               {SITE.tagline}. Cucian bersih dan wangi, bumi ikut tersenyum —
               karena kami pakai deterjen nabati 100% eco-friendly.
             </p>
+            {/* Badge keanggotaan ALDIN */}
+            <div className="mt-5">
+              <AldinPill />
+            </div>
             <div className="mt-6 flex items-center gap-3">
               <a
                 href={SOCIAL_LINKS.tiktok}

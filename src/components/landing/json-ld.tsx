@@ -67,6 +67,11 @@ export function JsonLd() {
         },
       ],
       sameAs: Object.values(SOCIAL_LINKS),
+      memberOf: {
+        "@type": "Organization",
+        name: "Asosiasi Laundry Digital Indonesia",
+        alternateName: "ALDIN",
+      },
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: "4.9",

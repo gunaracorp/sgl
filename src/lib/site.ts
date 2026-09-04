@@ -46,6 +46,17 @@ export const SITE = {
 /** Hari operasional semua outlet — buka setiap hari. */
 export const OPEN_DAYS = "Setiap Hari (Senin – Minggu)";
 
+/**
+ * Keanggotaan asosiasi — badge kepercayaan yang tampil di hero,
+ * section "Kenapa Samara?", footer, dan structured data (JSON-LD memberOf).
+ */
+export const ALDIN = {
+  short: "ALDIN",
+  name: "Asosiasi Laundry Digital Indonesia",
+  label: "Anggota Resmi",
+  desc: "Terdaftar sebagai anggota resmi Asosiasi Laundry Digital Indonesia — berkomitmen mengikuti standar operasional laundry digital yang profesional, aman, dan terpercaya.",
+} as const;
+
 export const OUTLETS = [
   {
     slug: "malangsari",

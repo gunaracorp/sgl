@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { WA_DEFAULT_LINK } from "@/lib/site";
+import { AldinPill } from "./aldin";
 import { Stars } from "./stars";
 
 const fadeUp: Variants = {
@@ -166,6 +167,11 @@ export function Hero() {
                 4.9/5 dari 2.500+ pelanggan puas
               </p>
             </div>
+          </motion.div>
+
+          {/* Badge keanggotaan asosiasi — ALDIN */}
+          <motion.div variants={fadeUp} className="mt-5">
+            <AldinPill />
           </motion.div>
         </motion.div>
 

@@ -257,3 +257,26 @@ Stage Summary:
 - Super ideas live: badge status buka/tutup REAL-TIME per outlet, klik-to-call & WA langsung ke outlet tujuan, JSON-LD jam buka 7 hari per outlet (rich snippet "Open daily"), direktori telepon di Kontak & Footer, FAQ & announcement bar sinkron
 - Sumber tunggal tetap OUTLETS di site.ts — ganti nomor/jam cukup sekali, menyebar ke UI, WA, tel:, JSON-LD, dan badge
 - out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html
+
+---
+Task ID: 17
+Agent: main orchestrator (Z.ai Code)
+Task: Integrasi keanggotaan Asosiasi Laundry Digital Indonesia (ALDIN) — badge kepercayaan full responsif + JSON-LD + README
+
+Work Log:
+- site.ts: konstanta terpusat ALDIN (short/name/label/desc) — satu sumber untuk semua badge
+- Komponen BARU aldin.tsx: AldinPill (chip ikon BadgeCheck + "Anggota Resmi ALDIN · Asosiasi Laundry Digital Indonesia", backdrop-blur) + AldinCard (kartu premium gradient emerald-950→800, emblem perisai ShieldCheck + BadgeCheck mini, eyebrow lime "ANGGOTA RESMI", shimmer sweep, glow dekoratif)
+- hero.tsx: AldinPill masuk trust row (di bawah avatar + rating bintang), animasi fadeUp stagger
+- why-us.tsx: (1) floating badge ALDIN di pojok kanan-atas gambar eco-wash (gerak float 6s, seimbang dgn badge Deterjen kiri-bawah); (2) AldinCard premium setelah 4 fitur keunggulan (Reveal delay 0.45)
+- footer.tsx: AldinPill di kolom brand antara tagline dan sosmed
+- json-ld.tsx: bisnis utama + properti memberOf Organization "Asosiasi Laundry Digital Indonesia" (alternateName ALDIN) → Google paham afiliasi asosiasi
+- README.md: section list diperbarui (Hero/Keunggulan/Footer menyebut ALDIN) + baris kustomisasi "Badge keanggotaan ALDIN → site.ts konstanta ALDIN"
+- Lint 0 error; build 9/9 → out/ 3.4MB + ZIP 2.1MB
+- Verifikasi statis out/index.html: 7× "Asosiasi Laundry Digital Indonesia", JSON-LD memberOf benar
+- Verifikasi browser desktop 1280 + mobile 390: pill hero rapi, floating badge tidak menabrak konten, kartu premium elegan + emblem ikon, footer badge kontras bagus, semua wrap sempurna di 390px, 0 error console
+
+Stage Summary:
+- Keanggotaan ALDIN tampil di 4 titik strategis: hero (pill), section Keunggulan (floating badge + kartu premium), footer (pill) — full responsif semua device
+- SEO: JSON-LD memberOf Organization ALDIN di structured data beranda
+- Sumber tunggal konstanta ALDIN di site.ts — ganti teks badge cukup sekali
+- out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html
