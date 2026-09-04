@@ -78,3 +78,20 @@ Stage Summary:
 - Website 100% kompatibel shared hosting (statis murni): `npm run deploy` → upload samara-green-laundry-website.zip ke public_html → selesai
 - Kontak baru: 0821-3450-6007 di semua CTA WhatsApp + tel: + footer
 - Kredit desainer tampil di footer + README
+
+---
+Task ID: 8
+Agent: main orchestrator (Z.ai Code)
+Task: Tambahkan TikTok @samaragreenlaundry04 ke website
+
+Work Log:
+- Buat komponen ikon kustom src/components/landing/tiktok-icon.tsx (SVG brand TikTok gaya Lucide, currentColor)
+- Centralisasi link sosmed: SOCIAL_LINKS di src/lib/site.ts (tiktok, instagram, facebook)
+- Footer: ikon TikTok jadi posisi pertama di baris sosmed, href Instagram/Facebook pindah ke SOCIAL_LINKS
+- Section kontak: tambah baris "IKUTI KAMI" — chip pill "@samaragreenlaundry04" + ikon Instagram & Facebook dengan hover lift
+- README: tambah TikTok di header, section kustomisasi sosmed baru, dan kredit
+- Verifikasi browser: 2 link tiktok.com/@samaragreenlaundry04 aktif (footer + kontak), lint exit 0, GET / 200
+
+Stage Summary:
+- TikTok @samaragreenlaundry04 terintegrasi penuh di footer + section kontak + README
+- Semua link sosmed terpusat di SOCIAL_LINKS (site.ts) — ganti sekali, berubah di semua tempat

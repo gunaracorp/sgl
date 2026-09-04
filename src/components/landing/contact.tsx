@@ -1,16 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Clock, MapPin, MessageCircle, Phone, Send } from "lucide-react";
+import { Clock, Facebook, Instagram, MapPin, MessageCircle, Phone, Send } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { SITE, waLink, WA_DEFAULT_LINK } from "@/lib/site";
+import { SITE, SOCIAL_LINKS, waLink, WA_DEFAULT_LINK } from "@/lib/site";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
+import { TikTokIcon } from "./tiktok-icon";
 
 /** Contact info cards + mini form that forwards the message to WhatsApp. */
 export function Contact() {
@@ -163,6 +164,41 @@ export function Contact() {
                 </span>
                 Dibalas kurang dari 5 menit di jam kerja
               </p>
+
+              <div className="mt-8">
+                <p className="text-xs font-bold uppercase tracking-wider text-stone-400">
+                  Ikuti Kami
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  <a
+                    href={SOCIAL_LINKS.tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-stone-200 bg-white px-4 py-2.5 text-sm font-bold text-emerald-900 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
+                  >
+                    <TikTokIcon className="size-4 text-emerald-600" />
+                    @samaragreenlaundry04
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram Samara Green Laundry"
+                    className="grid size-11 place-items-center rounded-full border border-stone-200 bg-white text-emerald-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
+                  >
+                    <Instagram className="size-4.5" aria-hidden />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook Samara Green Laundry"
+                    className="grid size-11 place-items-center rounded-full border border-stone-200 bg-white text-emerald-600 shadow-sm transition-all hover:-translate-y-0.5 hover:border-emerald-300 hover:shadow-md"
+                  >
+                    <Facebook className="size-4.5" aria-hidden />
+                  </a>
+                </div>
+              </div>
             </div>
 
             <form onSubmit={handleSubmit} className="grid gap-5 sm:grid-cols-2">

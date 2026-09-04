@@ -1,6 +1,14 @@
 import { Facebook, Instagram, Leaf, MapPin, MessageCircle, Phone } from "lucide-react";
 
-import { DESIGN_CREDIT, NAV_LINKS, SERVICE_TITLES, SITE, WA_DEFAULT_LINK } from "@/lib/site";
+import {
+  DESIGN_CREDIT,
+  NAV_LINKS,
+  SERVICE_TITLES,
+  SITE,
+  SOCIAL_LINKS,
+  WA_DEFAULT_LINK,
+} from "@/lib/site";
+import { TikTokIcon } from "./tiktok-icon";
 
 /** Dark forest-green footer, sticks to bottom via mt-auto on the root wrapper. */
 export function Footer() {
@@ -24,7 +32,16 @@ export function Footer() {
             </p>
             <div className="mt-6 flex items-center gap-3">
               <a
-                href="https://instagram.com"
+                href={SOCIAL_LINKS.tiktok}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok Samara Green Laundry — @samaragreenlaundry04"
+                className="grid size-10 place-items-center rounded-full bg-emerald-900 text-emerald-100 transition-all hover:scale-110 hover:bg-emerald-800 hover:text-lime-300"
+              >
+                <TikTokIcon className="size-4.5" />
+              </a>
+              <a
+                href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram Samara Green Laundry"
@@ -33,7 +50,7 @@ export function Footer() {
                 <Instagram className="size-4.5" aria-hidden />
               </a>
               <a
-                href="https://facebook.com"
+                href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook Samara Green Laundry"

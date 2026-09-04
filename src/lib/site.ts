@@ -53,6 +53,13 @@ export const WA_DEFAULT_LINK: string = waLink(
   "Halo Samara Green Laundry! Saya mau pesan layanan laundry."
 );
 
+/** Link media sosial resmi Samara Green Laundry. */
+export const SOCIAL_LINKS = {
+  tiktok: "https://www.tiktok.com/@samaragreenlaundry04",
+  instagram: "https://instagram.com",
+  facebook: "https://facebook.com",
+} as const;
+
 /** Kredit desainer website — ditampilkan di footer. */
 export const DESIGN_CREDIT = {
   company: "PT Digital Bisnis Manajemen",

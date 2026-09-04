@@ -12,7 +12,7 @@ Website company profile laundry **premium, modern, dan full animasi** — siap d
 ![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-black?style=for-the-badge&logo=framer&logoColor=white)
 ![Static HTML](https://img.shields.io/badge/Export-100%25_Statis-success?style=for-the-badge)
 
-**📞 Kontak Person: [0821-3450-6007](https://wa.me/628134506007)** · 💬 Semua tombol order langsung terhubung ke WhatsApp
+**📞 Kontak Person: [0821-3450-6007](https://wa.me/628134506007)** · 💬 Semua tombol order langsung terhubung ke WhatsApp · 🎵 TikTok: [@samaragreenlaundry04](https://www.tiktok.com/@samaragreenlaundry04)
 
 </div>
 
@@ -228,6 +228,18 @@ export const SITE = {
 
 > 💡 Rumus konversi: `0821-3450-6007` → buang `0` depan, ganti `62` → `628134506007`
 
+### 📱 Ganti Link Media Sosial (TikTok, Instagram, Facebook)
+
+📁 **File: `src/lib/site.ts`** → objek `SOCIAL_LINKS` (ikon otomatis tampil di footer & section kontak):
+
+```ts
+export const SOCIAL_LINKS = {
+  tiktok: "https://www.tiktok.com/@samaragreenlaundry04",
+  instagram: "https://instagram.com",     // ← ganti dengan akun asli
+  facebook: "https://facebook.com",       // ← ganti dengan akun asli
+};
+```
+
 ### 🏪 Ganti Alamat, Jam Buka, Tagline
 
 Masih di file yang sama — **`src/lib/site.ts`**:
@@ -326,7 +338,7 @@ Sudah termasuk & aktif otomatis:
 
 🌐 [digiman.id](https://digiman.id) &nbsp;·&nbsp; 🕸️ [juraganwebsite.web.id](https://juraganwebsite.web.id)
 
-**Samara Green Laundry** — 📞 Kontak Person: [0821-3450-6007](https://wa.me/628134506007?text=Halo%20Samara%20Green%20Laundry!)
+**Samara Green Laundry** — 📞 Kontak Person: [0821-3450-6007](https://wa.me/628134506007?text=Halo%20Samara%20Green%20Laundry!) · 🎵 [TikTok @samaragreenlaundry04](https://www.tiktok.com/@samaragreenlaundry04)
 
 *Dibangun dengan Next.js, TypeScript, Tailwind CSS & Framer Motion* 💚
 
