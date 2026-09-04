@@ -196,6 +196,257 @@ export const BUDGET_PLANS = [
 ] as const;
 
 /**
+ * Testimoni pelanggan — tampil sebagai 3 baris berjalan (marquee)
+ * di section "Testimoni". Tambah/hapus/edit di sini, website otomatis ikut.
+ * rating: 4–5 (bintang) · time: keterangan waktu relatif · service: chip layanan
+ */
+export const TESTIMONIALS = [
+  // — Baris 1 —
+  {
+    name: "Ibu Ratna Dewi",
+    initials: "RD",
+    area: "Tlogosari Kulon, Semarang",
+    rating: 5,
+    time: "3 hari lalu",
+    service: "Cuci Kering Setrika",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Langganan tiap minggu di outlet Tlogosari Kulon. Cucian dijemput pagi, besoknya sudah sampai rumah dalam keadaan lipat rapi dan wangi. Mulai 6.500-an dapat kualitas gini, worth it banget!",
+  },
+  {
+    name: "Bagas Prasetyo",
+    initials: "BP",
+    area: "Gemah, Semarang",
+    rating: 5,
+    time: "1 minggu lalu",
+    service: "Kilat Express",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Order kilat jam 8 pagi, jam 2 sore seragam sudah siap dipakai. Penyelamat banget buat anak kos yang segala sesuatunya dadakan.",
+  },
+  {
+    name: "Ibu Sri Wahyuni",
+    initials: "SW",
+    area: "Muktiharjo Kidul, Semarang",
+    rating: 5,
+    time: "2 minggu lalu",
+    service: "Bed Cover",
+    tone: "bg-teal-100 text-teal-700",
+    quote:
+      "Bed cover king size yang tebal itu wangi dan lembut lagi. Alergi saya nggak kambuh setelah dipakai — tungaunya benar-benar mati.",
+  },
+  {
+    name: "Andi Kurniawan",
+    initials: "AK",
+    area: "Pedurungan, Semarang",
+    rating: 4,
+    time: "1 bulan lalu",
+    service: "Cuci Sepatu",
+    tone: "bg-stone-200 text-stone-700",
+    quote:
+      "Sepatu putih balik bersih kayak baru keluar toko. Bintang 4 karena prosesnya 3 hari jadi agak nunggu, tapi hasilnya memuaskan kok.",
+  },
+  {
+    name: "Nadia Putri",
+    initials: "NP",
+    area: "Sendangguwo, Semarang",
+    rating: 5,
+    time: "3 hari lalu",
+    service: "Antar-Jemput",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Admin fast respon di WhatsApp, malam pun dibalas. Kurirnya juga ramah. Kulit saya sensitif tapi nggak gatal sama sekali — deterjennya memang beda.",
+  },
+  {
+    name: "Rudi Hartono",
+    initials: "RH",
+    area: "Tlogosari Kulon, Semarang",
+    rating: 5,
+    time: "1 minggu lalu",
+    service: "Paket Hemat",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Cuci kering cuma 2.500/kg, hasilnya bersih dan nggak bau apek. Buat seragam kerja harian paling cocok. Hemat banget!",
+  },
+  {
+    name: "Ibu Endang S.",
+    initials: "ES",
+    area: "Dempel, Semarang",
+    rating: 5,
+    time: "2 bulan lalu",
+    service: "Stroller",
+    tone: "bg-teal-100 text-teal-700",
+    quote:
+      "Outletnya persis di depan SMP Walisongo jadi gampang sekali. Stroller si kecil dicuci sampai steril, paddingnya wangi. Tenang hati.",
+  },
+  // — Baris 2 —
+  {
+    name: "Fajar Nugroho",
+    initials: "FN",
+    area: "Tembalang, Semarang",
+    rating: 5,
+    time: "4 hari lalu",
+    service: "Dry Cleaning",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Jas wisuda titip dry cleaning di sini. Baliknya premium banget — rapi, wanginya tahan lama. Recommended buat pakaian penting.",
+  },
+  {
+    name: "Ibu Lestari",
+    initials: "LS",
+    area: "Gemah, Semarang",
+    rating: 5,
+    time: "1 bulan lalu",
+    service: "Cuci Boneka",
+    tone: "bg-stone-200 text-stone-700",
+    quote:
+      "Koleksi boneka anak saya ada 6, semuanya balik seperti baru dan wangi. Harganya masuk akal, hasilnya memuaskan. Pasti titip lagi.",
+  },
+  {
+    name: "Yoga Saputra",
+    initials: "YS",
+    area: "Muktiharjo Kidul, Semarang",
+    rating: 5,
+    time: "2 minggu lalu",
+    service: "Antar-Jemput",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Pulang kerja tiap malam, nggak mungkin nyuci sendiri. Tinggal chat, kurir jemput, dua hari kemudian sudah di depan pintu. Live saver!",
+  },
+  {
+    name: "Ibu Kartika",
+    initials: "KT",
+    area: "Banyumanik, Semarang",
+    rating: 4,
+    time: "3 minggu lalu",
+    service: "Cuci Kering Setrika",
+    tone: "bg-teal-100 text-teal-700",
+    quote:
+      "Pertama coba karena rekomendasi tetangga. Sabtu kemarin agak penuh jadi pengerjaannya 3 hari. Tapi hasil lipatannya rapi banget, pasti balik lagi.",
+  },
+  {
+    name: "Dwi Anggraeni",
+    initials: "DA",
+    area: "Pedurungan, Semarang",
+    rating: 5,
+    time: "5 hari lalu",
+    service: "Sprei & Selimut",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Bayarnya bisa QRIS setelah cucian selesai, jadi tenang. Selimut hasilnya wangi banget sampai tercium dari pintu kamar.",
+  },
+  {
+    name: "Rizky Maulana",
+    initials: "RM",
+    area: "Semarang Timur",
+    rating: 5,
+    time: "1 bulan lalu",
+    service: "Cuci Sepatu",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Sneaker kulit favorit ditangani hati-hati, sampai solnya dibersihkan detail pakai sikat kecil. Sneakerheads wajib coba!",
+  },
+  {
+    name: "Ibu Nur Aini",
+    initials: "NA",
+    area: "Tlogosari Kulon, Semarang",
+    rating: 5,
+    time: "1 minggu lalu",
+    service: "Cuci Bersih",
+    tone: "bg-teal-100 text-teal-700",
+    quote:
+      "Cuci bersih 1 ribu per kilo? Awalnya saya nggak percaya. Ternyata beneran ada, cucian sehari-hari jadi bersih dan wangi. Mantap!",
+  },
+  // — Baris 3 —
+  {
+    name: "Hendra Wijaya",
+    initials: "HW",
+    area: "Gemah, Semarang",
+    rating: 5,
+    time: "2 hari lalu",
+    service: "Dry Cleaning",
+    tone: "bg-stone-200 text-stone-700",
+    quote:
+      "Gaun pengantin adik saya dry cleaning di sini dan hasilnya sempurna. Bahan halus ditangani khusus, adminnya sabar menjelaskan prosesnya.",
+  },
+  {
+    name: "Ibu Yuliana",
+    initials: "YL",
+    area: "Sendangguwo, Semarang",
+    rating: 5,
+    time: "3 minggu lalu",
+    service: "Cuci Kering Setrika",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Sudah hampir 2 tahun langganan, belum pernah ada pakaian hilang atau tertukar. Amanah. Seragam sekolah anak-anak selalu dari sini.",
+  },
+  {
+    name: "Anton Setiawan",
+    initials: "AS",
+    area: "Pedurungan, Semarang",
+    rating: 5,
+    time: "1 bulan lalu",
+    service: "Sprei & Selimut",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Sprei 5 kamar kos rutin titip di sini. Selalu tepat waktu diantar, lipatannya seragam semua jadi enak dilihat. Langganan terus.",
+  },
+  {
+    name: "Maya Kusuma",
+    initials: "MK",
+    area: "Muktiharjo Kidul, Semarang",
+    rating: 5,
+    time: "4 hari lalu",
+    service: "Kilat Express",
+    tone: "bg-teal-100 text-teal-700",
+    quote:
+      "Anak saya lomba besok pagi dan seragamnya belum dicuci. Kilat 6 jam menyelamatkan — putih bersih celah, wangi, tepat waktu!",
+  },
+  {
+    name: "Ibu Fitri Handayani",
+    initials: "FH",
+    area: "Dempel, Semarang",
+    rating: 5,
+    time: "2 minggu lalu",
+    service: "Cuci Tas",
+    tone: "bg-stone-200 text-stone-700",
+    quote:
+      "Tas kulit suami kena jamur dan hampir dibuang. Ternyata masih bisa diselamatkan, jamurnya hilang total. Suka banget pelayanannya!",
+  },
+  {
+    name: "Gilang Ramadhan",
+    initials: "GR",
+    area: "Tembalang, Semarang",
+    rating: 5,
+    time: "1 bulan lalu",
+    service: "Paket Hemat",
+    tone: "bg-emerald-100 text-emerald-700",
+    quote:
+      "Cuci kering lipat 4.500 paling cocok buat anak kos. Nggak perlu setrika sendiri, tinggal simpan di lemari. Hemat listrik pula.",
+  },
+  {
+    name: "Ibu Retno Wulandari",
+    initials: "RW",
+    area: "Tlogosari Kulon, Semarang",
+    rating: 5,
+    time: "6 hari lalu",
+    service: "Pakaian Bayi",
+    tone: "bg-lime-100 text-lime-700",
+    quote:
+      "Cucian bayi saya dicuci terpisah dengan perlakuan khusus. Kurir dan adminnya ramah, sabar jawab pertanyaan ibu baru. Detail banget!",
+  },
+] as const;
+
+/** Bungkus marquee: bagi testimoni jadi 3 baris @ 7 kartu. */
+export const TESTIMONIAL_ROWS = [
+  TESTIMONIALS.slice(0, 7),
+  TESTIMONIALS.slice(7, 14),
+  TESTIMONIALS.slice(14, 21),
+] as const;
+
+export type Testimonial = (typeof TESTIMONIALS)[number];
+
+/**
  * Data FAQ terpusat — dipakai oleh section FAQ (tampilan) DAN
  * structured data FAQPage (JSON-LD) agar sesuai pedoman Google.
  */

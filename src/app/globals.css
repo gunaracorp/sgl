@@ -203,3 +203,47 @@ html {
     animation: none;
   }
 }
+
+/* Testimoni: baris berjalan (marquee) tanpa putus */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee-x var(--marquee-duration, 60s) linear infinite;
+}
+.animate-marquee-reverse {
+  animation: marquee-x var(--marquee-duration, 60s) linear infinite reverse;
+}
+/* Pudar di tepi kiri-kanan agar kartu terbilang mulus keluar-masuk */
+.marquee-mask {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 7%,
+    black 93%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-marquee-reverse {
+    animation: none;
+  }
+  .marquee-mask {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}

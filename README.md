@@ -276,7 +276,7 @@ export const SITE = {
 | Kartu layanan + harga | `src/components/landing/services.tsx` |
 | Paket harga lengkap | `src/components/landing/pricing.tsx` |
 | Pertanyaan FAQ | `src/components/landing/faq.tsx` |
-| Testimoni pelanggan | `src/components/landing/testimoni` → `src/components/landing/testimonials.tsx` |
+| Testimoni pelanggan (21 ulasan) | `src/lib/site.ts` → konstanta `TESTIMONIALS` — tampil otomatis sebagai 3 baris berjalan (marquee) di section testimoni |
 
 ### 🖼️ Ganti Gambar
 
