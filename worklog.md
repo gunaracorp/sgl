@@ -95,3 +95,21 @@ Work Log:
 Stage Summary:
 - TikTok @samaragreenlaundry04 terintegrasi penuh di footer + section kontak + README
 - Semua link sosmed terpusat di SOCIAL_LINKS (site.ts) — ganti sekali, berubah di semua tempat
+
+---
+Task ID: 9
+Agent: main orchestrator (Z.ai Code)
+Task: Build static export ke folder out/ siap upload shared hosting
+
+Work Log:
+- Tambah distDir env override di next.config.ts (BUILD_DIST_DIR) agar build produksi tidak mengganggu dev server port 3000
+- Build sukses: next build (Next 16 Turbopack) → temuan penting: Next 16 menulis export ke dalam distDir, bukan out/ legacy
+- Buat scripts/prepare-out.mjs: salin hasil export → out/ bersih (skip artefak build: cache/build/server/static root/BUILD_ID/manifest json), kompatibel semua versi Next
+- package.json: build = "next build && node scripts/prepare-out.mjs", deploy = build + zip
+- Hasil: out/ 2.0MB (index.html, 404.html, .htaccess, favicon.svg, images/, _next/, robots.txt) + samara-green-laundry-website.zip 903KB
+- Verifikasi penuh via server statis port 4173 + agent-browser: render identik dev, hidrasi JS OK, WA/TikTok/credit/images lengkap, tanpa error
+- Dev server :3000 tetap sehat (GET 200), artefak .next-build dibersihkan
+
+Stage Summary:
+- out/ + samara-green-laundry-website.zip SIAP UPLOAD ke public_html
+- npm run build / npm run deploy kini deterministik menghasilkan out/ di semua versi Next.js

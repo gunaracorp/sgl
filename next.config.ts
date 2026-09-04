@@ -12,6 +12,9 @@ import type { NextConfig } from "next";
  *   assetPrefix: "/laundry",
  */
 const nextConfig: NextConfig = {
+  // Build artifacts terpisah (opsional): set BUILD_DIST_DIR saat build
+  // agar tidak mengganggu folder .next milik `next dev` yang sedang jalan.
+  distDir: process.env.BUILD_DIST_DIR || ".next",
   output: "export",
   trailingSlash: true,
   images: {

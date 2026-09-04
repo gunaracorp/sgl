@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3000 2>&1 | tee dev.log",
-    "build": "next build",
+    "build": "next build && node scripts/prepare-out.mjs",
     "zip": "cd out && zip -r ../samara-green-laundry-website.zip .",
-    "deploy": "next build && cd out && zip -r ../samara-green-laundry-website.zip .",
+    "deploy": "npm run build && cd out && zip -r ../samara-green-laundry-website.zip .",
     "preview": "npx -y serve out",
     "start": "npx -y serve out",
     "lint": "eslint .",
