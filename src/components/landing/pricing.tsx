@@ -1,10 +1,18 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, Truck } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Droplets,
+  Layers,
+  Truck,
+  WashingMachine,
+  type LucideIcon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { waLink } from "@/lib/site";
+import { BUDGET_PLANS, waLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
@@ -23,8 +31,9 @@ type Plan = {
 const PLANS: Plan[] = [
   {
     name: "Kiloan Reguler",
-    desc: "Hemat untuk kebutuhan harian keluarga.",
-    price: "Rp 7.000",
+    desc: "Cuci kering + setrika untuk kebutuhan harian keluarga.",
+    prefix: "mulai",
+    price: "Rp 6.500",
     unit: "/kg",
     features: [
       "Cuci + kering + setrika",
@@ -55,7 +64,7 @@ const PLANS: Plan[] = [
     name: "Premium Satuan",
     desc: "Perawatan khusus untuk item berharga.",
     prefix: "mulai",
-    price: "Rp 25.000",
+    price: "Rp 20.000",
     unit: "/item",
     features: [
       "Dry clean & cuci satuan",
@@ -203,6 +212,62 @@ export function Pricing() {
             </motion.div>
           ))}
         </div>
+
+        {/* Paket hemat: layanan kiloan tanpa setrika (dari BUDGET_PLANS) */}
+        <Reveal className="mt-12">
+          <div className="rounded-3xl border border-emerald-900/10 bg-gradient-to-b from-emerald-50/70 to-white p-6 shadow-sm sm:p-8">
+            <h3 className="text-center text-xl font-extrabold tracking-tight text-emerald-950 sm:text-2xl">
+              Paket Hemat Kiloan{" "}
+              <span className="text-emerald-600">— Tanpa Setrika</span>
+            </h3>
+            <p className="mx-auto mt-2 max-w-xl text-center text-sm text-stone-600">
+              Butuh cucian bersih dengan biaya paling ekonomis? Pilihan pintar
+              untuk cucian harian:
+            </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {BUDGET_PLANS.map((plan, i) => {
+                const Icons: LucideIcon[] = [Droplets, WashingMachine, Layers];
+                const Icon = Icons[i % Icons.length];
+                return (
+                  <div
+                    key={plan.name}
+                    className="group flex flex-col rounded-2xl border border-dashed border-emerald-300 bg-white p-5 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400 hover:shadow-md"
+                  >
+                    <span className="mx-auto grid size-11 place-items-center rounded-xl bg-emerald-100 text-emerald-700">
+                      <Icon className="size-5.5" aria-hidden />
+                    </span>
+                    <h4 className="mt-3 font-extrabold text-emerald-950">
+                      {plan.name}
+                    </h4>
+                    <p className="mt-1 flex-1 text-xs leading-relaxed text-stone-500">
+                      {plan.desc}
+                    </p>
+                    <div className="mt-3 flex items-baseline justify-center gap-0.5">
+                      <span className="text-2xl font-extrabold tracking-tight text-emerald-700 sm:text-[1.7rem]">
+                        {plan.price}
+                      </span>
+                      <span className="text-sm font-bold text-stone-500">
+                        {plan.unit}
+                      </span>
+                    </div>
+                    <a
+                      href={waLink(
+                        `Halo Samara Green Laundry! Saya mau pesan paket hemat ${plan.name} (${plan.price}${plan.unit}).`
+                      )}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center justify-center gap-1 text-sm font-bold text-emerald-700 transition-all duration-300 group-hover:gap-2 hover:text-emerald-600"
+                      aria-label={`Pesan paket hemat ${plan.name} via WhatsApp`}
+                    >
+                      Pesan Hemat
+                      <ArrowRight className="size-4" aria-hidden />
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </Reveal>
 
         <Reveal className="mt-12 flex justify-center">
           <p className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-2.5 text-center text-sm font-semibold text-emerald-800">

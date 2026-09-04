@@ -23,6 +23,7 @@ import {
   outletMapsEmbedUrl,
   outletMapsUrl,
   outletWaLink,
+  PRICE_RANGE,
   SERVICE_TITLES,
   SITE,
   SITE_URL,
@@ -90,7 +91,7 @@ function OutletJsonLd({ slug }: { slug: string }) {
       telephone: SITE.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/favicon.svg`,
-      priceRange: "Rp7.000 - Rp35.000",
+      priceRange: PRICE_RANGE,
       currenciesAccepted: "IDR",
       paymentAccepted: "Tunai, QRIS, Transfer Bank",
       address: {

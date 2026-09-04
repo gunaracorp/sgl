@@ -164,6 +164,37 @@ export const SERVICE_TITLES = [
   "Cuci Boneka & Stroller",
 ] as const;
 
+/** Rentang harga untuk JSON-LD priceRange (layanan termurah – termahal). */
+export const PRICE_RANGE = "Rp1.000 - Rp35.000";
+
+/**
+ * Paket hemat kiloan TANPA setrika — tampil di section "Harga"
+ * dan ikut masuk ke OfferCatalog JSON-LD (rich snippet Google).
+ */
+export const BUDGET_PLANS = [
+  {
+    name: "Cuci Bersih",
+    price: "Rp 1.000",
+    unit: "/kg",
+    value: "1000",
+    desc: "Cuci bersih higienis + kering angin — paling hemat untuk cucian harian.",
+  },
+  {
+    name: "Cuci Kering",
+    price: "Rp 2.500",
+    unit: "/kg",
+    value: "2500",
+    desc: "Cuci + pengeringan mesin — langsung siap pakai tanpa setrika.",
+  },
+  {
+    name: "Cuci Kering Lipat",
+    price: "Rp 4.500",
+    unit: "/kg",
+    value: "4500",
+    desc: "Cuci + kering + dilipat rapi — tampung rapi tanpa perlu setrika.",
+  },
+] as const;
+
 /**
  * Data FAQ terpusat — dipakai oleh section FAQ (tampilan) DAN
  * structured data FAQPage (JSON-LD) agar sesuai pedoman Google.

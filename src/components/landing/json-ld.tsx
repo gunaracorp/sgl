@@ -1,6 +1,8 @@
 import {
+  BUDGET_PLANS,
   FAQS,
   OUTLETS,
+  PRICE_RANGE,
   SITE,
   SITE_URL,
   SOCIAL_LINKS,
@@ -28,7 +30,7 @@ export function JsonLd() {
       telephone: SITE.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/favicon.svg`,
-      priceRange: "Rp7.000 - Rp35.000",
+      priceRange: PRICE_RANGE,
       currenciesAccepted: "IDR",
       paymentAccepted: "Tunai, QRIS, Transfer Bank",
       address: {
@@ -73,12 +75,23 @@ export function JsonLd() {
         "@type": "OfferCatalog",
         name: "Layanan Laundry",
         itemListElement: [
+          // Paket hemat kiloan tanpa setrika (Cuci Bersih / Kering / Lipat)
+          ...BUDGET_PLANS.map((plan) => ({
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: plan.name },
+            priceSpecification: {
+              "@type": "UnitPriceSpecification",
+              price: plan.value,
+              priceCurrency: "IDR",
+              unitText: "kg",
+            },
+          })),
           {
             "@type": "Offer",
             itemOffered: { "@type": "Service", name: "Cuci Kering Setrika" },
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "7000",
+              price: "6500",
               priceCurrency: "IDR",
               unitText: "kg",
             },
@@ -104,7 +117,7 @@ export function JsonLd() {
             },
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "25000",
+              price: "20000",
               priceCurrency: "IDR",
             },
           },
@@ -113,7 +126,7 @@ export function JsonLd() {
             itemOffered: { "@type": "Service", name: "Cuci Sepatu & Tas" },
             priceSpecification: {
               "@type": "UnitPriceSpecification",
-              price: "30000",
+              price: "20000",
               priceCurrency: "IDR",
             },
           },
@@ -181,7 +194,7 @@ export function JsonLd() {
       telephone: SITE.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/favicon.svg`,
-      priceRange: "Rp7.000 - Rp35.000",
+      priceRange: PRICE_RANGE,
       currenciesAccepted: "IDR",
       paymentAccepted: "Tunai, QRIS, Transfer Bank",
       address: {

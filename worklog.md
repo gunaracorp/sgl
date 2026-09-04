@@ -176,3 +176,22 @@ Stage Summary:
 - 3 outlet asli live: section Lokasi di beranda + halaman khusus per outlet dengan peta Google interaktif
 - SEO lokal lengkap: canonical per outlet, sitemap 4 URL, JSON-LD LocalBusiness per outlet + parentOrganization, keyword lokal (Tlogosari Kulon, Gemah, Muktiharjo Kidul, Pedurungan, Sendangguwo, Dempel)
 - Data outlet terpusat di OUTLETS (site.ts) — tambah/edit outlet cukup di satu tempat
+
+---
+Task ID: 13
+Agent: main orchestrator (Z.ai Code)
+Task: Update harga revisi + tambah 3 layanan hemat baru (Cuci Bersih 1rb, Cuci Kering 2.5rb, Cuci Kering Lipat 4.5rb)
+
+Work Log:
+- site.ts: tambah PRICE_RANGE ("Rp1.000 - Rp35.000") + BUDGET_PLANS (Cuci Bersih 1.000, Cuci Kering 2.500, Cuci Kering Lipat 4.500 per kg — dengan desc & value utk JSON-LD)
+- services.tsx: harga revisi — Cuci Kering Setrika "Rp 7.000/kg" → "mulai Rp 6.500/kg"; Dry Cleaning mulai 25.000 → 20.000; Cuci Sepatu & Tas mulai 30.000 → 20.000
+- pricing.tsx: Kiloan Reguler → prefix "mulai" + Rp 6.500; Premium Satuan → Rp 20.000; strip BARU "Paket Hemat Kiloan — Tanpa Setrika" (3 kartu dashed-border berikon Droplets/WashingMachine/Layers + tombol "Pesan Hemat" WA per paket, dari BUDGET_PLANS)
+- json-ld.tsx: priceRange → PRICE_RANGE (bisnis utama + semua outlet); OfferCatalog kini 9 offer (3 paket hemat dari BUDGET_PLANS + revisi 6500/20000/20000)
+- outlet/[slug]/page.tsx: priceRange → PRICE_RANGE
+- Lint 0 error; build OK → out/ 3.0MB + ZIP 1.5MB diperbarui
+- Verifikasi browser: kartu utama "mulai Rp 6.500", strip 3 paket hemat tampil (Rp 1.000/2.500/4.500 + Pesan Hemat), JSON-LD 9 offer harga benar, mobile 390 rapi, tanpa error
+- Verifikasi statis out/index.html (parsing node): 9 offer benar, priceRange Rp1.000 - Rp35.000, harga lama Rp7.000 hilang
+
+Stage Summary:
+- 3 layanan baru live + tampil di rich snippet Google; semua harga revisi konsisten di UI, WA CTA, dan JSON-LD
+- Sumber tunggal: BUDGET_PLANS & PRICE_RANGE di site.ts — ubah harga hemat cukup sekali

@@ -30,7 +30,7 @@ const SERVICES: Service[] = [
     icon: Shirt,
     title: "Cuci Kering Setrika",
     desc: "Cuci, kering, dan setrika rapi dengan perawatan lembut untuk pakaian sehari-hari keluarga.",
-    price: "Rp 7.000/kg",
+    price: "mulai Rp 6.500/kg",
     featured: true,
   },
   {
@@ -43,13 +43,13 @@ const SERVICES: Service[] = [
     icon: Sparkles,
     title: "Dry Cleaning Premium",
     desc: "Perawatan khusus jas, gaun, dan bahan delikat dengan teknologi solvent ramah lingkungan.",
-    price: "mulai Rp 25.000",
+    price: "mulai Rp 20.000",
   },
   {
     icon: Footprints,
     title: "Cuci Sepatu & Tas",
     desc: "Deep cleaning sepatu dan tas favoritmu dengan sikat lembut serta pengeringan suhu ruang.",
-    price: "mulai Rp 30.000",
+    price: "mulai Rp 20.000",
   },
   {
     icon: BedDouble,
