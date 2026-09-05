@@ -154,6 +154,77 @@ export const OUTLETS = [
 
 export type Outlet = (typeof OUTLETS)[number];
 
+/** Format angka → "Rp 4.500" (pemisah ribuan titik, deterministik build-time). */
+export function formatRp(value: number): string {
+  return `Rp ${String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`;
+}
+
+/**
+ * PRICE LIST KHUSUS OUTLET — sumber tunggal harga resmi per outlet.
+ * Sumber: papan harga asli di outlet (foto pricelist-sgl-malangsari.jpeg).
+ * Tampil di halaman /outlet/[slug]/#harga + teaser di kartu outlet beranda.
+ * Hanya outlet yang terdaftar di sini yang punya section price list sendiri.
+ */
+export type OutletPricelist = {
+  /** Harga kiloan reguler (per kg) */
+  reguler: readonly { name: string; price: number }[];
+  regulerNote: string;
+  /** Harga kiloan express (per kg) */
+  express: readonly { name: string; price: number }[];
+  expressNote: string;
+  /** Harga satuan — kecil & besar (null = hubungi outlet) */
+  satuan: readonly { name: string; kecil: number | null; besar: number | null }[];
+  /** Harga self service / mandiri (per kg) */
+  selfService: readonly { name: string; price: number }[];
+  selfServiceNote: string;
+  /** Catatan layanan antar-jemput outlet */
+  deliveryNote: string;
+};
+
+export const OUTLET_PRICELISTS: Partial<Record<Outlet["slug"], OutletPricelist>> = {
+  malangsari: {
+    reguler: [
+      { name: "Cuci Setrika", price: 6000 },
+      { name: "Cuci Kering", price: 4500 },
+      { name: "Setrika", price: 4500 },
+      { name: "Cuci Lipat Press", price: 4900 },
+    ],
+    regulerNote: "Semua layanan reguler minimal 3 kg · selesai 1 hari",
+    express: [
+      { name: "Cuci Setrika", price: 10000 },
+      { name: "Cuci Kering", price: 7000 },
+      { name: "Setrika", price: 7000 },
+      { name: "Cuci Lipat Press", price: 9000 },
+    ],
+    expressNote: "Semua layanan express minimal 3 kg · selesai 5 jam",
+    satuan: [
+      { name: "Seprei", kecil: 10000, besar: 14000 },
+      { name: "Selimut", kecil: 11000, besar: 16000 },
+      { name: "Bed Cover", kecil: 20000, besar: 30000 },
+      { name: "Tas", kecil: 25000, besar: 40000 },
+      { name: "Sepatu", kecil: 25000, besar: 40000 },
+      { name: "Seragam", kecil: 10000, besar: 15000 },
+      { name: "Boneka", kecil: 25000, besar: 50000 },
+      { name: "Jas", kecil: 20000, besar: 30000 },
+      { name: "Gorden", kecil: 15000, besar: 25000 },
+      { name: "Karpet", kecil: 11000, besar: 20000 },
+      { name: "Helm", kecil: 20000, besar: 30000 },
+      { name: "DLL", kecil: null, besar: null },
+    ],
+    selfService: [
+      { name: "Cuci", price: 1000 },
+      { name: "Cuci Kering", price: 2500 },
+    ],
+    selfServiceNote: "Semua layanan self service minimal 5 kg · mandiri di outlet",
+    deliveryNote: "Antar-jemput GRATIS (maks 2 km) — konfirmasi jadwal kurir lewat WhatsApp.",
+  },
+} as const;
+
+/** Ambil price list khusus sebuah outlet — null jika outlet tidak punya. */
+export function getOutletPricelist(slug: string): OutletPricelist | null {
+  return OUTLET_PRICELISTS[slug as Outlet["slug"]] ?? null;
+}
+
 /** Cari outlet berdasarkan slug (untuk halaman /outlet/[slug]/). */
 export function getOutlet(slug: string): Outlet | undefined {
   return OUTLETS.find((o) => o.slug === slug);

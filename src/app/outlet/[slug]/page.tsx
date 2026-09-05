@@ -17,9 +17,12 @@ import { FloatingWhatsapp } from "@/components/landing/floating-whatsapp";
 import { Footer } from "@/components/landing/footer";
 import { Navbar } from "@/components/landing/navbar";
 import { OpenNowBadge } from "@/components/landing/open-now-badge";
+import { OutletPricelist } from "@/components/landing/outlet-pricelist";
 import { Reveal } from "@/components/landing/reveal";
 import {
+  formatRp,
   getOutlet,
+  getOutletPricelist,
   OPEN_DAYS,
   OUTLETS,
   outletHoursSpec,
@@ -51,7 +54,14 @@ export async function generateMetadata({
   if (!outlet) return {};
 
   const title = `Laundry ${outlet.area} ${outlet.district} Semarang — ${outlet.name}`;
-  const description = `${outlet.description} Buka setiap hari ${outlet.hoursDisplay} WIB. Telepon/WhatsApp ${outlet.phoneDisplay}.`;
+  let description = `${outlet.description} Buka setiap hari ${outlet.hoursDisplay} WIB. Telepon/WhatsApp ${outlet.phoneDisplay}.`;
+
+  // Outlet dengan price list khusus → sebut harga termurah di snippet Google
+  const plMeta = getOutletPricelist(outlet.slug);
+  if (plMeta) {
+    const mulai = Math.min(...plMeta.reguler.map((r) => r.price));
+    description += ` Price list resmi outlet: reguler mulai ${formatRp(mulai)}/kg, express 5 jam jadi.`;
+  }
 
   return {
     title,
@@ -84,6 +94,19 @@ function OutletJsonLd({ slug }: { slug: string }) {
   if (!outlet) return null;
 
   const outletUrl = `${SITE_URL}/outlet/${outlet.slug}/`;
+
+  // Outlet dengan price list khusus → priceRange akurat dari data harga asli
+  const pl = getOutletPricelist(outlet.slug);
+  let priceRange = PRICE_RANGE;
+  if (pl) {
+    const nums = [...pl.reguler, ...pl.selfService].map((r) => r.price);
+    pl.satuan.forEach((s) => {
+      if (s.kecil !== null) nums.push(s.kecil);
+      if (s.besar !== null) nums.push(s.besar);
+    });
+    priceRange = `${formatRp(Math.min(...nums))} - ${formatRp(Math.max(...nums))}`;
+  }
+
   const graph = [
     {
       "@type": ["LocalBusiness", "DryCleaningOrLaundry"],
@@ -95,7 +118,7 @@ function OutletJsonLd({ slug }: { slug: string }) {
       telephone: outlet.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
       logo: `${SITE_URL}/images/icon-512.png`,
-      priceRange: PRICE_RANGE,
+      priceRange,
       currenciesAccepted: "IDR",
       paymentAccepted: "Tunai, QRIS, Transfer Bank",
       address: {
@@ -355,6 +378,9 @@ export default async function OutletPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        {/* Price list khusus outlet (hanya outlet dengan data di OUTLET_PRICELISTS) */}
+        <OutletPricelist outlet={outlet} />
 
         {/* Outlet lain */}
         <section className="bg-gradient-to-b from-white to-emerald-50/60 py-16 lg:py-20">

@@ -325,3 +325,25 @@ Stage Summary:
 - Status buka/tutup live kini 100% berbasis WIB (UTC+7) — akurat untuk pengunjung dari zona waktu mana pun
 - Label "WIB" tampil di badge live, kartu outlet, halaman outlet, kontak & FAQ — konsisten satu bahasa waktu
 - Sumber tunggal: TIME_ZONE + isOpenNow di site.ts; out/ + ZIP diperbarui, siap upload ulang
+
+---
+Task ID: 20
+Agent: main orchestrator (Z.ai Code)
+Task: Price list resmi KHUSUS outlet Malangsari (dari foto papan harga asli user) — section premium + teaser beranda + SEO
+
+Work Log:
+- User upload pricelist-sgl-malangsari.jpeg (papan harga asli outlet Malangsari) → seluruh angka ditranskrip & diverifikasi visual: Reguler (Cuci Setrika 6.000, Cuci Kering 4.500, Setrika 4.500, Cuci Lipat Press 4.900 /kg, min 3kg 1 hari jadi), Express (10.000, 7.000, 7.000, 9.000 /kg, min 3kg 5 jam jadi), Satuan 12 item (Seprei 10rb/14rb s/d Helm 20rb/30rb, DLL=hubungi), Self Service (Cuci 1.000, Cuci Kering 2.500 /kg, min 5kg), Antar-Jemput GRATIS maks 2km, HP/WA sesuai nomor outlet Malangsari
+- Keputusan desain: papan harga di-rebuild NATIVE (bukan foto di-tempel) → tajam di semua layar, responsif, aksesibel, terbaca mesin pencari; hanya berlaku outlet Malangsari (homepage harga brand-level tidak diubah)
+- site.ts: type OutletPricelist + OUTLET_PRICELISTS (Partial<Record<slug, pricelist>> — siap diisi outlet lain) + getOutletPricelist() + formatRp() (pemisah ribuan deterministik tanpa Intl)
+- Komponen BARU outlet-pricelist.tsx (server component): section #harga "Daftar Harga Malangsari" — chip eyebrow "Price List Resmi Outlet", kartu Kiloan Reguler putih (badge "1 Hari Jadi") vs Kiloan Express gradient emerald-700→900 unggulan (badge lime "5 Jam Jadi"), tabel Laundry Satuan semantik (caption sr-only, th scope, Kecil/Besar, DLL italic "Hubungi outlet"), kartu Self Service, kartu lime "Antar-Jemput GRATIS!", CTA WA+telepon per outlet; semua Reveal stagger, badge & pita konsisten design system
+- outlet/[slug]/page.tsx: render <OutletPricelist> di antara Info & Outlet Lain; metadata description outlet ber-price list kini "+ Price list resmi outlet: reguler mulai Rp 4.500/kg, express 5 jam jadi."; JSON-LD priceRange dihitung dari data (malangsari "Rp 1.000 - Rp 50.000", outlet lain tetap PRICE_RANGE global)
+- outlets.tsx (beranda): kartu outlet ber-price list dapat pill lime "⚡ Reguler mulai Rp 4.500/kg · Express 5 jam" + link "Detail Outlet & Price List" deep-anchor /outlet/malangsari/#harga
+- Lint 0 error; build 9/9 → out/ + samara-green-laundry-website.zip 2.7MB
+- Verifikasi statis out/: 28/29 string harga OK (1 false-positive kapitalisasi meta), sendangguwo & dempel benar TANPA section price list, teaser & deep-link ada di index
+- Verifikasi browser desktop 1280 + mobile 390: section #harga render 23 baris harga, tabel & kartu rapi tanpa overflow, teaser kartu Malangsari muncul, 0 error console
+- README.md: baris kustomisasi "Price list khusus outlet → OUTLET_PRICELISTS"
+
+Stage Summary:
+- Price list resmi Malangsari kini live & cantik di /outlet/malangsari/#harga — 4 kelompok harga lengkap + gratis antar-jemput 2km, di-rebuild native agar tajam/responsif/SEO-friendly
+- Arsitektur siapOutlet-lain: tambahkan entri di OUTLET_PRICELISTS → section, teaser, meta & priceRange otomatis mengikuti
+- out/ + ZIP diperbarui, siap upload ulang ke public_html

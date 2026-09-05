@@ -9,11 +9,14 @@ import {
   Navigation,
   Phone,
   Store,
+  Zap,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
+  formatRp,
+  getOutletPricelist,
   OPEN_DAYS,
   OUTLETS,
   outletMapsEmbedUrl,
@@ -41,6 +44,15 @@ const SERVICE_CHIPS = ["Kiloan", "Satuan", "Cuci Setrika", "Antar Jemput"] as co
 
 /** One outlet card: name, address, services, hours, maps + detail links. */
 function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
+  // Outlet dengan price list khusus → teaser harga + deep-link ke #harga
+  const pricelist = getOutletPricelist(outlet.slug);
+  const hargaMulai = pricelist
+    ? Math.min(...pricelist.reguler.map((r) => r.price))
+    : null;
+  const detailHref = pricelist
+    ? `/outlet/${outlet.slug}/#harga`
+    : `/outlet/${outlet.slug}/`;
+
   return (
     <motion.article
       variants={item}
@@ -94,6 +106,13 @@ function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
         ))}
       </ul>
 
+      {pricelist && hargaMulai !== null ? (
+        <p className="relative mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-lime-50 px-3 py-1 text-xs font-semibold text-lime-800 ring-1 ring-lime-200">
+          <Zap className="size-3.5" aria-hidden />
+          Reguler mulai {formatRp(hargaMulai)}/kg · Express 5 jam
+        </p>
+      ) : null}
+
       <p className="relative mt-4 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs font-medium text-stone-500">
         <span className="flex items-center gap-2">
           <Clock className="size-4 shrink-0 text-emerald-600" aria-hidden />
@@ -145,11 +164,11 @@ function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
       </div>
 
       <a
-        href={`/outlet/${outlet.slug}/`}
+        href={detailHref}
         className="relative mt-3 inline-flex items-center gap-1 text-sm font-bold text-emerald-700 transition-colors hover:text-emerald-600"
         aria-label={`Lihat halaman lengkap ${outlet.name}`}
       >
-        Detail Outlet
+        Detail Outlet{pricelist ? " & Price List" : ""}
         <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
       </a>
     </motion.article>

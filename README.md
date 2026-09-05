@@ -291,6 +291,7 @@ export const SITE = {
 | Pertanyaan FAQ | `src/components/landing/faq.tsx` |
 | Testimoni pelanggan (21 ulasan) | `src/lib/site.ts` → konstanta `TESTIMONIALS` — tampil otomatis sebagai 3 baris berjalan (marquee) di section testimoni |
 | Badge keanggotaan ALDIN | `src/lib/site.ts` → konstanta `ALDIN` — tampil otomatis di hero, section Keunggulan, footer & JSON-LD (memberOf) |
+| Price list khusus outlet (mis. Malangsari) | `src/lib/site.ts` → `OUTLET_PRICELISTS` — section "Daftar Harga" di halaman outlet (`#harga`), teaser harga di kartu beranda, meta description & JSON-LD `priceRange` mengikuti otomatis. Tambahkan slug outlet lain untuk memberi price list sendiri |
 
 ### 🖼️ Ganti Gambar
 
