@@ -98,7 +98,7 @@ function OutletCard({ outlet, delay }: { outlet: Outlet; delay: number }) {
         <span className="flex items-center gap-2">
           <Clock className="size-4 shrink-0 text-emerald-600" aria-hidden />
           <span>
-            <strong className="font-bold text-stone-700">{outlet.hoursDisplay}</strong>
+            <strong className="font-bold text-stone-700">{outlet.hoursDisplay} WIB</strong>
             {" "}· {OPEN_DAYS.replace(" (Senin – Minggu)", "")}
           </span>
         </span>

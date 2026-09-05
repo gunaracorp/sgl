@@ -275,6 +275,12 @@ export const SITE = {
 > otomatis dipakai di kartu outlet, halaman /outlet/, JSON-LD, dan badge
 > "Buka Sekarang" yang live di browser.
 
+> 🕐 **Zona waktu** — Semarang = **WIB (Waktu Indonesia Barat, UTC+7)**.
+> Badge "Buka Sekarang" SELALU dihitung dengan jam WIB resmi (`TIME_ZONE =
+> "Asia/Jakarta"` di `src/lib/site.ts`), apa pun timezone perangkat
+> pengunjung — tamu dari Bali (WITA), Papua (WIT), atau luar negeri tetap
+> melihat status buka/tutup yang akurat.
+
 ### 💰 Ganti Harga & Layanan
 
 | Yang diganti | File |

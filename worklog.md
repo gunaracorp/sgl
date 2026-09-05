@@ -304,3 +304,24 @@ Stage Summary:
 - Logo resmi kini identitas visual website: navbar, menu mobile, footer, favicon/PWA (tab browser + layar utama HP), JSON-LD logo, dan og-image (preview WhatsApp/Facebook/X)
 - Aset turunan otomatis dari 1 file master via scripts/process-logo.mjs — ganti logo cukup timpa file & jalankan ulang
 - out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html
+
+---
+Task ID: 19
+Agent: main orchestrator (Z.ai Code)
+Task: Hardening zona waktu — Semarang = WIB; badge "Buka Sekarang" selalu akurat WIB apa pun timezone pengunjung
+
+Work Log:
+- Konteks: user tanya "di Semarang waktu Indonesia bagian apa?" → Semarang = WIB (UTC+7). Audit menunjukkan isOpenNow lama memakai now.getHours() (jam device pengunjung) → status bisa meleset 1–2 jam utk pengunjung WITA/WIT/luar negeri
+- site.ts: konstanta BARU TIME_ZONE = "Asia/Jakarta" + helper wibHoursMinutes() (Intl.DateTimeFormat en-GB, timeZone Asia/Jakarta, hourCycle h23, %24 defensif utk jam 24); isOpenNow kini menghitung jam+menit WIB — signature tetap, semua pemanggil kompatibel
+- open-now-badge.tsx: teks badge + " WIB" ("Buka Sekarang · tutup 22.00 WIB" / "Tutup · buka 08.00 WIB"); komentar komponen diperbarui
+- outlets.tsx: baris jam kartu outlet kini "{hoursDisplay} WIB · Setiap Hari"
+- Uji unit logic via node: simulasi device TZ Asia/Jakarta, Asia/Tokyo, America/New_York, Australia/Sydney, Europe/London → hasil Intl identik 07:18 WIB di semua timezone ✓
+- Lint 0 error; build 9/9 → out/ + samara-green-laundry-website.zip 2.7MB
+- Verifikasi statis out/: 7× "WIB" di index, 11× per halaman outlet, ALDIN memberOf tetap utuh di semua halaman
+- Verifikasi browser (live jam 07.19 WIB): Malangsari "Buka Sekarang · tutup 22.00 WIB" ✓, Sendangguwo "Tutup · buka 08.00 WIB" ✓ (tepat — belum jam 08), Dempel "Buka Sekarang · tutup 21.00 WIB" ✓; console bersih; screenshot desktop 1280 + mobile 390 rapi tanpa overflow
+- README.md: blok "Zona waktu — Semarang = WIB" menjelaskan TIME_ZONE Asia/Jakarta di situs kustomisasi
+
+Stage Summary:
+- Status buka/tutup live kini 100% berbasis WIB (UTC+7) — akurat untuk pengunjung dari zona waktu mana pun
+- Label "WIB" tampil di badge live, kartu outlet, halaman outlet, kontak & FAQ — konsisten satu bahasa waktu
+- Sumber tunggal: TIME_ZONE + isOpenNow di site.ts; out/ + ZIP diperbarui, siap upload ulang

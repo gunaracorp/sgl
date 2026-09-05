@@ -8,9 +8,10 @@ import { isOpenNow, type Outlet } from "@/lib/site";
 /**
  * Badge status buka/tutup LIVE per outlet.
  * - "Buka Sekarang" (hijau, titik berdenyut) saat jam buka
- * - "Tutup · buka 07.00" saat di luar jam buka
+ * - "Tutup · buka 07.00 WIB" saat di luar jam buka
  * Status dihitung di browser setelah mount (bebas hydration mismatch)
- * dan disegarkan otomatis setiap menit.
+ * dan disegarkan otomatis setiap menit — SELALU memakai jam WIB
+ * (Asia/Jakarta) via isOpenNow, apa pun timezone device pengunjung.
  */
 export function OpenNowBadge({ outlet }: { outlet: Outlet }) {
   const [open, setOpen] = useState<boolean | null>(null);
@@ -46,7 +47,7 @@ export function OpenNowBadge({ outlet }: { outlet: Outlet }) {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
         <span className="relative inline-flex size-2 rounded-full bg-emerald-600" />
       </span>
-      Buka Sekarang · tutup {pad(outlet.closeHour)}.00
+      Buka Sekarang · tutup {pad(outlet.closeHour)}.00 WIB
     </span>
   ) : (
     <span
@@ -55,7 +56,7 @@ export function OpenNowBadge({ outlet }: { outlet: Outlet }) {
       aria-label={`${outlet.name} sedang tutup — buka besok pukul ${pad(outlet.openHour)}.00 WIB`}
     >
       <Clock className="size-3 text-amber-600" aria-hidden />
-      Tutup · buka {pad(outlet.openHour)}.00
+      Tutup · buka {pad(outlet.openHour)}.00 WIB
     </span>
   );
 }

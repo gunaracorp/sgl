@@ -182,9 +182,31 @@ export function outletTelLink(outlet: Outlet): string {
   return `tel:${outlet.phoneIntl}`;
 }
 
-/** Apakah outlet sedang buka? (dihitung di browser — buka setiap hari) */
+/**
+ * Zona waktu resmi operasional seluruh outlet — Semarang = WIB
+ * (Waktu Indonesia Barat, UTC+7). Semua perhitungan status
+ * "Buka Sekarang" memakai jam WIB, apa pun timezone perangkat
+ * pengunjung (mis. tamu dari Bali/WITA atau luar negeri tetap akurat).
+ */
+export const TIME_ZONE = "Asia/Jakarta";
+
+/** Ambil jam & menit WIB dari objek Date — bebas dari timezone device. */
+function wibHoursMinutes(now: Date): { hours: number; minutes: number } {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TIME_ZONE,
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(now);
+  const pick = (type: Intl.DateTimeFormatPart["type"]) =>
+    Number(parts.find((p) => p.type === type)?.value ?? "0");
+  return { hours: pick("hour") % 24, minutes: pick("minute") };
+}
+
+/** Apakah outlet sedang buka? (dihitung dengan jam WIB resmi — buka setiap hari) */
 export function isOpenNow(outlet: Outlet, now: Date = new Date()): boolean {
-  const t = now.getHours() + now.getMinutes() / 60;
+  const { hours, minutes } = wibHoursMinutes(now);
+  const t = hours + minutes / 60;
   return t >= outlet.openHour && t < outlet.closeHour;
 }
 
