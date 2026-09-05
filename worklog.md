@@ -280,3 +280,27 @@ Stage Summary:
 - SEO: JSON-LD memberOf Organization ALDIN di structured data beranda
 - Sumber tunggal konstanta ALDIN di site.ts — ganti teks badge cukup sekali
 - out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html
+
+---
+Task ID: 18
+Agent: main orchestrator (Z.ai Code)
+Task: Integrasi logo resmi Samara Green Laundry (upload user, 640x640 JPG) ke seluruh website
+
+Work Log:
+- Upload user: upload/samara-green-laundry-logo.jpg (daun + wordmark, latar putih)
+- Script BARU scripts/process-logo.mjs (sharp): (1) white→transparent dengan falloff halus 215–245 (jaga stroke hijau muda logo); (2) auto-detect bounding box piksel → crop; (3) output: logo-leaf.png (emblem daun 512 persegi transparan), logo-full.png (daun+wordmark transparan), icon-192.png, icon-512.png (PWA/favicon transparan), apple-touch-icon.png (180, latar putih utk iOS); (4) optimasi PNG palette q90 → logo-leaf 337KB→74KB, icon-192 68KB→16KB
+- navbar.tsx: BrandMark + header Sheet mobile kini pakai Image logo-leaf.png asli (ganti ikon Leaf generik + kotak gradient)
+- footer.tsx: emblem daun asli dalam kotak putih rounded-xl (kontras di footer emerald-950), alt="Logo Samara Green Laundry"
+- layout.tsx: metadata icons — icon [192 PNG, 512 PNG, favicon.svg fallback] + apple-touch-icon.png
+- manifest.ts (PWA): icons icon-192.png + icon-512.png + svg
+- json-ld.tsx + outlet/[slug]/page.tsx: logo schema.org → https://sgl.web.id/images/icon-512.png (semua node bisnis + 3 outlet)
+- make-og.mjs: badge gambar daun diganti LOGO RESMI — pelat putih rounded + composite logo-leaf 76px; og-image.jpg diregenerasi
+- README.md: tabel gambar + baris logo (logo-leaf/logo-full/icon-*/apple) + panduan "Ganti logo" (timpa atau rerun process-logo.mjs)
+- Lint 0 error; build 9/9 → out/ 3.6MB + ZIP 2.5MB; aset logo ikut ke out/images/
+- Verifikasi statis: head tags icon-192/512 + apple-touch + og-image OK; manifest icons OK; JSON-LD logo sgl.web.id/images/icon-512.png OK (beranda + outlet)
+- Verifikasi browser desktop + mobile: logo daun asli tampil di navbar (desktop & Sheet mobile) dan footer, tajam & proporsional; 0 error console
+
+Stage Summary:
+- Logo resmi kini identitas visual website: navbar, menu mobile, footer, favicon/PWA (tab browser + layar utama HP), JSON-LD logo, dan og-image (preview WhatsApp/Facebook/X)
+- Aset turunan otomatis dari 1 file master via scripts/process-logo.mjs — ganti logo cukup timpa file & jalankan ulang
+- out/ + samara-green-laundry-website.zip DIPERBARUI, siap upload ulang ke public_html

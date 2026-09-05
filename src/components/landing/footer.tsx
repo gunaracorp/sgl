@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Facebook, Instagram, Leaf, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Facebook, Instagram, MapPin, MessageCircle, Phone } from "lucide-react";
 
 import {
   DESIGN_CREDIT,
@@ -28,8 +29,15 @@ export function Footer() {
           {/* Brand */}
           <div>
             <a href={isHome ? "#beranda" : "/"} className="flex items-center gap-2.5">
-              <span className="grid size-10 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-md">
-                <Leaf className="size-5 text-white" aria-hidden />
+              {/* Logo resmi — emblem daun dalam kotak putih agar kontras di footer gelap */}
+              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white p-1 shadow-md">
+                <Image
+                  src="/images/logo-leaf.png"
+                  alt="Logo Samara Green Laundry"
+                  width={40}
+                  height={40}
+                  className="size-9 object-contain"
+                />
               </span>
               <span className="text-lg font-extrabold tracking-tight text-white">
                 Samara <span className="text-lime-400">Green</span> Laundry

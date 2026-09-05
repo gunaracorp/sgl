@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   motion,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
-import { Leaf, Menu, MessageCircle } from "lucide-react";
+import { Menu, MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -28,9 +29,15 @@ function BrandMark({ homeHref }: { homeHref: string }) {
       className="flex items-center gap-2.5"
       aria-label={`${SITE.name} — kembali ke beranda`}
     >
-      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 shadow-md shadow-emerald-900/20">
-        <Leaf className="size-5 text-white" aria-hidden />
-      </span>
+      {/* Logo resmi Samara Green Laundry (emblem daun, PNG transparan) */}
+      <Image
+        src="/images/logo-leaf.png"
+        alt=""
+        width={48}
+        height={48}
+        className="size-10 shrink-0 object-contain drop-shadow-sm"
+        aria-hidden
+      />
       <span className="text-lg font-extrabold tracking-tight text-emerald-950">
         Samara <span className="text-emerald-600">Green</span> Laundry
       </span>
@@ -116,9 +123,14 @@ export function Navbar() {
             >
               <SheetHeader className="border-b border-emerald-900/10 p-5 text-left">
                 <SheetTitle className="flex items-center gap-2.5">
-                  <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700">
-                    <Leaf className="size-4.5 text-white" aria-hidden />
-                  </span>
+                  <Image
+                    src="/images/logo-leaf.png"
+                    alt=""
+                    width={44}
+                    height={44}
+                    className="size-9 shrink-0 object-contain"
+                    aria-hidden
+                  />
                   <span className="text-base font-extrabold tracking-tight text-emerald-950">
                     Samara <span className="text-emerald-600">Green</span>{" "}
                     Laundry

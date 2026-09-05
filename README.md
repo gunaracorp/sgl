@@ -296,8 +296,12 @@ Letakkan foto asli bisnis Anda (foto outlet, kurir, hasil cucian) ke `public/ima
 | `eco-wash.png` | Section keunggulan |
 | `delivery.png` | Section CTA banner |
 | `folded-clothes.png` | Section testimoni/CTA |
+| `logo-leaf.png` | **Logo resmi** — emblem daun (navbar, menu mobile, footer, favicon) |
+| `logo-full.png` | **Logo resmi** lengkap (daun + wordmark) — cadangan/cetak |
+| `icon-192.png` / `icon-512.png` / `apple-touch-icon.png` | Favicon & ikon PWA (tab browser, layar utama HP) |
 
 > 💡 Ukuran ideal: `hero-laundry.png` 1344×768 px, lainnya persegi/landscape. Format JPG juga bisa (jangan lupa ganti ekstensi di komponen terkait).
+> 🏷️ **Ganti logo**: timpa `logo-leaf.png` dkk. dengan logo Anda (PNG transparan), atau jalankan ulang `node scripts/process-logo.mjs` setelah menaruh `upload/samara-green-laundry-logo.jpg` baru — semua ikon & og-image ikut terbuat otomatis.
 
 ### 🎨 Ganti Warna Tema
 

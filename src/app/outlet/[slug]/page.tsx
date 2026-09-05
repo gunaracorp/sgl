@@ -94,7 +94,7 @@ function OutletJsonLd({ slug }: { slug: string }) {
       url: outletUrl,
       telephone: outlet.phoneIntl,
       image: `${SITE_URL}/og-image.jpg`,
-      logo: `${SITE_URL}/favicon.svg`,
+      logo: `${SITE_URL}/images/icon-512.png`,
       priceRange: PRICE_RANGE,
       currenciesAccepted: "IDR",
       paymentAccepted: "Tunai, QRIS, Transfer Bank",

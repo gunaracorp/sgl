@@ -27,10 +27,8 @@ const overlaySvg = `
 
   <rect width="${W}" height="${H}" fill="url(#shade)"/>
 
-  <!-- Brand badge kiri-atas -->
-  <rect x="52" y="52" width="72" height="72" rx="20" fill="url(#pill)"/>
-  <path d="M70 108 C62 96 66 78 82 72 C96 66 106 60 114 52 C118 62 120 70 118 82 C114 100 94 112 78 110 Z"
-        fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Brand badge kiri-atas: pelat putih + LOGO RESMI (composite) -->
+  <rect x="48" y="48" width="88" height="88" rx="22" fill="#ffffff"/>
 
   <!-- Headline -->
   <text x="52" y="452" font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold" font-size="66" fill="#ffffff">Samara Green Laundry</text>
@@ -46,9 +44,17 @@ const overlaySvg = `
   <text x="1148" y="574" text-anchor="end" font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold" font-size="26" fill="#fde047">★ 4.9 / 5  ·  2.500+ pelanggan</text>
 </svg>`;
 
+const logoLeaf = await sharp("public/images/logo-leaf.png")
+  .resize(76, 76, { fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } })
+  .png()
+  .toBuffer();
+
 await sharp("public/images/hero-laundry.png")
   .resize(W, H, { fit: "cover", position: "attention" })
-  .composite([{ input: Buffer.from(overlaySvg) }])
+  .composite([
+    { input: Buffer.from(overlaySvg) },
+    { input: logoLeaf, top: 54, left: 54 },
+  ])
   .jpeg({ quality: 85, mozjpeg: true })
   .toFile("public/og-image.jpg");
 
