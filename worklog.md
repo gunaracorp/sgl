@@ -347,3 +347,23 @@ Stage Summary:
 - Price list resmi Malangsari kini live & cantik di /outlet/malangsari/#harga — 4 kelompok harga lengkap + gratis antar-jemput 2km, di-rebuild native agar tajam/responsif/SEO-friendly
 - Arsitektur siapOutlet-lain: tambahkan entri di OUTLET_PRICELISTS → section, teaser, meta & priceRange otomatis mengikuti
 - out/ + ZIP diperbarui, siap upload ulang ke public_html
+
+---
+Task ID: 21
+Agent: main orchestrator (Z.ai Code)
+Task: 3 landing page HTML mandiri untuk subdomain outlet (malangsari/sendang/dempel .sgl.web.id) — siap upload cPanel
+
+Work Log:
+- Konteks: user berjanji ke staf outlet → tiap outlet punya subdomain sendiri; minta full HTML tinggal upload
+- Generator BARU scripts/build-subdomains.mjs (data-driven, EDIT DI SINI): 3 outlet dengan copy unik per outlet (anti duplicate content): headline/hero/meta/testimoni dipilih sesuai area outlet (Tlogosari Kulon, Gemah/Sendangguwo, Muktiharjo Kidul/Dempel)
+- Output per folder subdomain-sites/<slug>/: index.html (1 file mandiri ~200KB) + robots.txt (→ sitemap pusat) + .htaccess (force HTTPS 301 + gzip + expires) + PANDUAN-UPLOAD.txt di root → samara-green-laundry-subdomains.zip (275KB)
+- Fitur per halaman: navbar sticky glass + menu mobile hamburger, badge live "Buka Sekarang" (vanilla JS, Intl timeZone Asia/Jakarta → WIB akurat, refresh 60s), hero base64 (sharp: logo 8KB palette, hero 880w jpeg q80 81KB, favicon 5KB — gambar TERTANAM, tampil walau pusat maintenance), 6 kartu layanan + WA deep-link per layanan, strip statistik, price list (Malangsari: 4 blok papan harga asli — Reguler/Express/Satuan/Self Service + gratis antar 2km; Sendang & Dempel: 6 kartu harga brand + CTA tanya harga), lokasi + maps embed + petunjuk arah, 3 testimoni per area, 6 FAQ details/summary (native, aksesibel), CTA banner, footer (ALDIN + jaringan hub&spoke: link pusat + 2 sibling subdomain + TikTok + kredit), floating WA
+- SEO per subdomain: title/desc unik, canonical https://<sub>/, OG/Twitter, geo meta, JSON-LD LocalBusiness+DryCleaningOrLaundry (telephone/jam/priceRange/memberOf ALDIN/parentOrganization/sameAs TikTok) + WebSite — validasi JSON.parse OK semua
+- Perbaikan saat QA: (1) typo heroSub sendang; (2) h1 <em> nowrap overflow di 390px (kata "Gemah" terpotong) → highlight dipindah ke "Sendangguwo" saja + media query ≤640px white-space normal; verifikasi body.scrollWidth AMAN
+- Verifikasi browser (file://): 3 halaman render sempurna desktop 1280 + mobile 390, badge benar (Malangsari "tutup 22.00", Sendang "tutup 20.00", Dempel "tutup 21.00" WIB), menu mobile buka/tutup, maps iframe hidup, 0 error console; statis: 12 wa.me per halaman, nomor outlet benar-benar beda per file, cross-link pusat+sibling 2/2 semua
+- README.md: section "Deploy Subdomain Outlet — 3 Landing Page HTML Mandiri" (tabel mapping + regenerate + upload)
+
+Stage Summary:
+- 3 landing page HTML mandiri siap upload: subdomain-sites/{malangsari,sendang,dempel}/ → samara-green-laundry-subdomains.zip (275KB, 13 file)
+- Konsep hub & spoke: website pusat = hub, subdomain = spoke dengan konten unik per outlet + cross-link — ide jualan janji user jadi senjata SEO lokal
+- Regenerasi cukup: edit DATA di scripts/build-subdomains.mjs → node scripts/build-subdomains.mjs

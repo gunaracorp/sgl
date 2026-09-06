@@ -1,0 +1,41 @@
+============================================================
+ PANDUAN UPLOAD SUBDOMAIN OUTLET — Samara Green Laundry
+============================================================
+Isi paket ini:
+  malangsari/   → untuk https://malangsari.sgl.web.id
+  sendang/      → untuk https://sendang.sgl.web.id
+  dempel/       → untuk https://dempel.sgl.web.id
+  (tiap folder berisi index.html + robots.txt + .htaccess)
+
+LANGKAH DI cPanel (hosting sgl.web.id):
+ 1. Login cPanel → menu "Domains" (atau "Subdomains").
+ 2. Create New Domain → isi:
+      malangsari.sgl.web.id   → Document Root: public_html/malangsari
+    Ulangi untuk:
+      sendang.sgl.web.id      → Document Root: public_html/sendang
+      dempel.sgl.web.id       → Document Root: public_html/dempel
+    (DNS otomatis karena satu akun hosting — tunggu 5–30 menit).
+ 3. File Manager → buka public_html/malangsari → upload SELURUH ISI
+    folder "malangsari/" dari paket ini (index.html, robots.txt, .htaccess).
+    Ulangi untuk sendang/ dan dempel/.
+ 4. Selesai! Tes di browser:
+      https://malangsari.sgl.web.id
+      https://sendang.sgl.web.id
+      https://dempel.sgl.web.id
+ 5. HTTPS (AutoSSL): cPanel biasanya menerbitkan sertifikat otomatis
+    dalam 1–24 jam. .htaccess bawaan sudah memaksa http → https.
+
+ CATATAN PINTAR:
+ • Logo, favicon & foto hero TERTANAM di dalam file index.html (base64) —
+   halaman tampil sempurna walau website pusat sedang maintenance.
+ • Badge "Buka Sekarang" dihitung pakai jam WIB resmi (Asia/Jakarta)
+   di device pengunjung — akurat dari mana pun pengunjung membuka.
+ • Tombol WhatsApp langsung ke nomor outlet masing-masing:
+   Malangsari 0851-1754-1083 · Sendangguwo 0851-3747-3412 · Dempel 0851-3747-3409
+ • Google Business Profile tiap outlet → isi kolom "Website" dengan
+   subdomain outletnya (SEO lokal melesat!).
+ • Setelah live, tambahkan 3 subdomain ke Google Search Console.
+ • Edit teks/harga: cukup edit file index.html (cari angkanya, ganti),
+   atau minta regenerasi dari project utama:
+   node scripts/build-subdomains.mjs
+============================================================

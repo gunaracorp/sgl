@@ -206,6 +206,23 @@ const nextConfig: NextConfig = {
 
 > ⚠️ **Penting:** setelah deploy ke sub-folder, semua link internal otomatis menyesuaikan. Jangan lupa build ulang setiap kali mengubah konfigurasi.
 
+### 🛰️ Deploy Subdomain Outlet — 3 Landing Page HTML Mandiri
+
+Selain website pusat, tersedia **3 landing page mandiri** untuk subdomain per outlet:
+
+| Subdomain | Folder di ZIP | Nomor Outlet |
+|---|---|---|
+| `malangsari.sgl.web.id` | `subdomain-sites/malangsari/` | 0851-1754-1083 |
+| `sendang.sgl.web.id` | `subdomain-sites/sendang/` | 0851-3747-3412 |
+| `dempel.sgl.web.id` | `subdomain-sites/dempel/` | 0851-3747-3409 |
+
+Paket **`samara-green-laundry-subdomains.zip`** berisi tiap folder (`index.html` + `robots.txt` + `.htaccess`) plus `PANDUAN-UPLOAD.txt`.
+
+- **1 file mandiri per outlet** — CSS, JS, logo, favicon, foto hero semua tertanam (base64); tetap tampil walau website pusat maintenance.
+- **Fitur**: badge live "Buka Sekarang" (jam WIB `Asia/Jakarta`), price list (Malangsari: papan harga asli lengkap; outlet lain: harga brand + CTA), Google Maps, WhatsApp ke nomor outlet, FAQ, testimoni per area, JSON-LD LocalBusiness + memberOf ALDIN, force HTTPS via `.htaccess`, cross-link ke website pusat & outlet lain (struktur *hub & spoke*).
+- **Regenerate**: ubah data di `scripts/build-subdomains.mjs` (bagian `DATA OUTLET`) lalu jalankan `node scripts/build-subdomains.mjs`.
+- **Upload**: cPanel → *Domains/Subdomains* → buat `malangsari` / `sendang` / `dempel` (Document Root `public_html/<nama>`) → upload isi foldernya. Detail lengkap ada di `PANDUAN-UPLOAD.txt`.
+
 ---
 
 ## 🛠️ Panduan Kustomisasi

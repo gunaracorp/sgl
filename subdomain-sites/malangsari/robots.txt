@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sgl.web.id/sitemap.xml
