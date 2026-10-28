@@ -1,69 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Baby,
-  BedDouble,
-  Footprints,
-  Shirt,
-  Sparkles,
-  Zap,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { SERVICES } from "@/lib/services-data";
 import { waLink } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "./section-heading";
-
-type Service = {
-  icon: LucideIcon;
-  title: string;
-  desc: string;
-  price: string;
-  featured?: boolean;
-};
-
-const SERVICES: Service[] = [
-  {
-    icon: Shirt,
-    title: "Cuci Kering Setrika",
-    desc: "Cuci, kering, dan setrika rapi dengan perawatan lembut untuk pakaian sehari-hari keluarga.",
-    price: "mulai Rp 6.500/kg",
-    featured: true,
-  },
-  {
-    icon: Zap,
-    title: "Cuci Kilat Express 6 Jam",
-    desc: "Butuh cepat? Selesai hanya dalam 6 jam dengan hasil yang tetap segar dan wangi.",
-    price: "Rp 12.000/kg",
-  },
-  {
-    icon: Sparkles,
-    title: "Dry Cleaning Premium",
-    desc: "Perawatan khusus jas, gaun, dan bahan delikat dengan teknologi solvent ramah lingkungan.",
-    price: "mulai Rp 20.000",
-  },
-  {
-    icon: Footprints,
-    title: "Cuci Sepatu & Tas",
-    desc: "Deep cleaning sepatu dan tas favoritmu dengan sikat lembut serta pengeringan suhu ruang.",
-    price: "mulai Rp 20.000",
-  },
-  {
-    icon: BedDouble,
-    title: "Bed Cover & Selimut",
-    desc: "Menghilangkan tungau dan bakteri, kembali lembut, ringan, dan wangi seperti baru.",
-    price: "mulai Rp 35.000",
-  },
-  {
-    icon: Baby,
-    title: "Cuci Boneka & Stroller",
-    desc: "Sterilisasi higienis untuk boneka dan stroller si kecil — aman langsung disentuh.",
-    price: "mulai Rp 25.000",
-  },
-];
 
 /** 6 service cards in a responsive grid; first card is the featured one. */
 export function Services() {

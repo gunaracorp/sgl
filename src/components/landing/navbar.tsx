@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import {
-  motion,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
@@ -53,20 +52,24 @@ export function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  // Di halaman outlet, link section diarahkan ke beranda: /#layanan dst.
-  const resolveHref = (href: string) => (isHome ? href : `/${href}`);
+  // Halaman mandiri ("/layanan" dst.) dipakai apa adanya;
+  // anchor "#layanan" diarahkan ke beranda saat tidak di halaman utama.
+  const resolveHref = (href: string) => {
+    if (href.startsWith("/") || href.startsWith("http")) {
+      return isHome && href === "/" ? "#beranda" : href;
+    }
+    return isHome ? href : `/${href}`;
+  };
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 12);
   });
 
   return (
-    <motion.header
-      initial={{ y: -32, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+    /* Animasi masuk via CSS murni — bebas hydration mismatch (lihat globals.css) */
+    <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b transition-all duration-300",
+        "sticky top-0 z-50 w-full border-b transition-all duration-300 animate-[slide-down_0.5s_ease-out_both] motion-reduce:animate-none",
         scrolled
           ? "border-emerald-900/10 bg-white/85 shadow-lg shadow-emerald-950/5 backdrop-blur-xl"
           : "border-transparent bg-white/60 backdrop-blur-md"
@@ -171,6 +174,6 @@ export function Navbar() {
           </Sheet>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

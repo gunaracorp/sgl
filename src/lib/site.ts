@@ -302,15 +302,18 @@ export function outletHoursSpec(outlet: Outlet) {
   ];
 }
 
+/**
+ * Navigasi utama — kini berupa HALAMAN MANDIRI (bukan lagi anchor satu halaman).
+ * "/#lokasi" = kembali ke beranda lalu scroll ke daftar outlet.
+ */
 export const NAV_LINKS = [
-  { label: "Beranda", href: "#beranda" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Harga", href: "#harga" },
-  { label: "Cara Pesan", href: "#cara-pesan" },
-  { label: "Testimoni", href: "#testimoni" },
-  { label: "Lokasi", href: "#lokasi" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Kontak", href: "#kontak" },
+  { label: "Beranda", href: "/" },
+  { label: "Tentang", href: "/tentang" },
+  { label: "Layanan", href: "/layanan" },
+  { label: "Harga", href: "/harga" },
+  { label: "Outlet", href: "/#lokasi" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Kontak", href: "/kontak" },
 ] as const;
 
 export const SERVICE_TITLES = [

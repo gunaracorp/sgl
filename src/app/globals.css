@@ -247,3 +247,15 @@ html {
     -webkit-mask-image: none;
   }
 }
+
+/* Animasi masuk navbar — CSS murni (hydration-safe, tanpa race framer-motion) */
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

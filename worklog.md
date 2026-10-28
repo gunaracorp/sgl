@@ -408,3 +408,26 @@ Stage Summary:
 - SGL resmi jadi percontohan JWDS v1.0: DESIGN-SYSTEM.md + styleguide mandiri + Mode Percontohan siap melatih tim & memeriksa 95 website
 - Panel Kendali tersembunyi berfungsi penuh: 3 role, leads tracker, promo live, audit — tanpa mengubah 1 pixel utk pengunjung
 - Catatan: kode aktivasi ikut ter-embed di JS bundle (sifat client-side) — utk keamanan sejati upgrade full-stack
+
+---
+Task ID: 24
+Agent: main orchestrator (Z.ai Code)
+Task: Halaman mandiri — arsitektur multi-halaman (5 halaman baru, rapi satu per satu)
+
+Work Log:
+- Request user: website "tidak punya halaman mandiri, semuanya harus punya halaman rapih satu persatu" → arsitektur dari satu-halaman-panjang jadi multi-halaman
+- NAV_LINKS (site.ts) diubah dari anchor (#layanan) ke halaman asli: /, /tentang, /layanan, /harga, /#lokasi, /faq, /kontak
+- resolveHref baru di navbar.tsx & footer.tsx: href halaman ("/x") dipakai apa adanya; anchor ("#x") → "/#x" saat bukan di home; href="/" di home → "#beranda"
+- Komponen BARU page-hero.tsx (server): hero gradien emerald JWDS + breadcrumb aksesibel + JSON-LD BreadcrumbList otomatis (prop crumb+path) + ornamen blur
+- 5 halaman BARU di src/app/: /tentang (cerita+AldinCard+Stats+4 nilai+3 outlet kartu+CTA), /layanan (6 kartu layanan dgn WA deep-link per layanan + 3 kemudahan + CTA harga), /harga (BUDGET_PLANS + metode bayar QRIS/Tunai/Transfer + OutletPricelist Malangsari reuse + harga brand Sendangguwo & Dempel + link outlet), /faq (reuse Faq + JSON-LD FAQPage + kontak cepat 3 outlet), /kontak (reuse Contact + 3 outlet dgn maps embed + OpenNowBadge + rute)
+- REFACTOR: data SERVICES + type Service pindah ke src/lib/services-data.ts (modul biasa) — array di modul "use client" tidak bisa diimpor server component (client reference proxy, .map gagal → /layanan 500, teratasi)
+- FIX hydration mismatch (warning Next dev tools): motion.header framer-motion race dgn hydration (SSR style opacity:0 vs sudah teranimasi) → ganti CSS animation murni keyframes slide-down di globals.css + motion-reduce:animate-none
+- sitemap.ts: STATIC_PAGES 5 halaman baru → sitemap.xml 9 URL total
+- Verifikasi: lint 0 error; build 14/14 halaman statis; browser /tentang /layanan /harga /faq /kontak render sempurna (H1 tunggal, breadcrumb OK, /harga 6 konten kunci ditemukan), nav cross-link (tentang→layanan OK, footer OK), mobile 390 menu + tanpa overflow, hydration warning 0 di home & /layanan setelah fix
+- Statis out/: 5 halaman title unik + canonical + BreadcrumbList + OG semua ✓, outlet page dapat nav halaman ✓
+- README.md: section "Halaman Mandiri — Arsitektur Multi-Halaman" + TOC
+
+Stage Summary:
+- Website kini 9 halaman mandiri: beranda + tentang + layanan + harga + faq + kontak + 3 outlet — tiap topik URL sendiri, SEO rapi
+- Pola halaman baru terdokumentasi (PageHero + metadata + sitemap) — replikasi JWDS makin mudah
+- ZIP diperbarui via npm run deploy; siap release v1.2.0

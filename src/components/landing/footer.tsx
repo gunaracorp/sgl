@@ -20,7 +20,14 @@ import { TikTokIcon } from "./tiktok-icon";
 export function Footer() {
   const pathname = usePathname();
   const isHome = pathname === "/";
-  const resolveHref = (href: string) => (isHome ? href : `/${href}`);
+  // Halaman mandiri ("/layanan" dst.) dipakai apa adanya;
+  // anchor "#layanan" diarahkan ke beranda saat tidak di halaman utama.
+  const resolveHref = (href: string) => {
+    if (href.startsWith("/") || href.startsWith("http")) {
+      return isHome && href === "/" ? "#beranda" : href;
+    }
+    return isHome ? href : `/${href}`;
+  };
 
   return (
     <footer className="mt-auto bg-emerald-950 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-16 text-emerald-100/70">

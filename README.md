@@ -28,6 +28,7 @@ Website company profile laundry **premium, modern, dan full animasi** — siap d
   - [Cara 1 — Upload ZIP via File Manager (paling mudah)](#cara-1--upload-zip-via-file-manager-cpanel-paling-mudah)
   - [Cara 2 — Upload via FTP (FileZilla)](#cara-2--upload-via-ftp-filezilla)
   - [Deploy ke Sub-Folder](#deploy-ke-sub-folder-misal-domaincomlaundry)
+- [📄 Halaman Mandiri — Arsitektur Multi-Halaman](#-halaman-mandiri--arsitektur-multi-halaman) ⭐ **BARU**
 - [🌿 JWDS v1.0 — Standar Design & Panel Kendali](#️-jwds-v10--standar-design--panel-kendali-role-activation) ⭐ **UNTUK 95 WEBSITE**
 - [🛠️ Panduan Kustomisasi](#️-panduan-kustomisasi)
 - [🔍 SEO & Optimasi](#-seo--optimasi)
@@ -223,6 +224,27 @@ Paket **`samara-green-laundry-subdomains.zip`** berisi tiap folder (`index.html`
 - **Fitur**: badge live "Buka Sekarang" (jam WIB `Asia/Jakarta`), price list (Malangsari: papan harga asli lengkap; outlet lain: harga brand + CTA), Google Maps, WhatsApp ke nomor outlet, FAQ, testimoni per area, JSON-LD LocalBusiness + memberOf ALDIN, force HTTPS via `.htaccess`, cross-link ke website pusat & outlet lain (struktur *hub & spoke*).
 - **Regenerate**: ubah data di `scripts/build-subdomains.mjs` (bagian `DATA OUTLET`) lalu jalankan `node scripts/build-subdomains.mjs`.
 - **Upload**: cPanel → *Domains/Subdomains* → buat `malangsari` / `sendang` / `dempel` (Document Root `public_html/<nama>`) → upload isi foldernya. Detail lengkap ada di `PANDUAN-UPLOAD.txt`.
+
+---
+
+## 📄 Halaman Mandiri — Arsitektur Multi-Halaman
+
+Website kini punya **halaman terpisah yang rapi per topik** (bukan lagi satu halaman panjang):
+
+| Halaman | URL | Isi |
+|---|---|---|
+| Tentang Kami | `/tentang/` | Cerita brand, 4 nilai, ALDIN, statistik, jangkauan 3 outlet |
+| Layanan | `/layanan/` | Katalog 6 layanan + 3 kemudahan, CTA WhatsApp **per layanan** |
+| Daftar Harga | `/harga/` | Paket kiloan brand + **price list resmi Malangsari** + harga outlet lain + metode bayar |
+| FAQ | `/faq/` | 6 pertanyaan + JSON-LD FAQPage + kontak cepat per outlet |
+| Kontak & Lokasi | `/kontak/` | Form ke WhatsApp + 3 outlet dengan **maps embed** + badge buka live |
+| Outlet (sudah ada) | `/outlet/malangsari/` dst. | Halaman khusus per outlet |
+
+- **Navigasi** (navbar & footer) kini menuju halaman asli; link `Outlet` diarahkan ke daftar outlet di beranda (`/#lokasi`).
+- **SEO**: tiap halaman punya title/description unik, canonical, OG tags, **JSON-LD BreadcrumbList** otomatis (komponen `PageHero`), dan halaman FAQ punya JSON-LD `FAQPage`.
+- **Sitemap** otomatis memuat 9 URL (5 halaman baru + 3 outlet + beranda) — lihat `src/app/sitemap.ts`.
+- **Halaman baru** tinggal ikuti pola: salin struktur `src/app/faq/page.tsx` (metadata + `PageHero` + konten + Navbar/Footer/FloatingWhatsapp), lalu tambahkan path-nya di `STATIC_PAGES` sitemap.
+- **Catatan teknis**: data layanan dipusatkan di `src/lib/services-data.ts` (bisa dipakai server & client component); animasi masuk navbar memakai CSS murni agar bebas hydration warning.
 
 ---
 
