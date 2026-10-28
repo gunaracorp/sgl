@@ -1,5 +1,6 @@
 import { AnnouncementBar } from "@/components/landing/announcement-bar";
 import { Contact } from "@/components/landing/contact";
+import { ControlPanel } from "@/components/landing/control-panel";
 import { CtaBanner } from "@/components/landing/cta-banner";
 import { Faq } from "@/components/landing/faq";
 import { FloatingWhatsapp } from "@/components/landing/floating-whatsapp";
@@ -37,6 +38,8 @@ export default function Home() {
       </main>
       <Footer />
       <FloatingWhatsapp />
+      {/* Panel Kendali JWDS — tersembunyi, hanya terbuka dengan kode aktivasi */}
+      <ControlPanel />
     </div>
   );
 }

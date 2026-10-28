@@ -28,6 +28,7 @@ Website company profile laundry **premium, modern, dan full animasi** — siap d
   - [Cara 1 — Upload ZIP via File Manager (paling mudah)](#cara-1--upload-zip-via-file-manager-cpanel-paling-mudah)
   - [Cara 2 — Upload via FTP (FileZilla)](#cara-2--upload-via-ftp-filezilla)
   - [Deploy ke Sub-Folder](#deploy-ke-sub-folder-misal-domaincomlaundry)
+- [🌿 JWDS v1.0 — Standar Design & Panel Kendali](#️-jwds-v10--standar-design--panel-kendali-role-activation) ⭐ **UNTUK 95 WEBSITE**
 - [🛠️ Panduan Kustomisasi](#️-panduan-kustomisasi)
 - [🔍 SEO & Optimasi](#-seo--optimasi)
 - [❓ Troubleshooting](#-troubleshooting)
@@ -222,6 +223,45 @@ Paket **`samara-green-laundry-subdomains.zip`** berisi tiap folder (`index.html`
 - **Fitur**: badge live "Buka Sekarang" (jam WIB `Asia/Jakarta`), price list (Malangsari: papan harga asli lengkap; outlet lain: harga brand + CTA), Google Maps, WhatsApp ke nomor outlet, FAQ, testimoni per area, JSON-LD LocalBusiness + memberOf ALDIN, force HTTPS via `.htaccess`, cross-link ke website pusat & outlet lain (struktur *hub & spoke*).
 - **Regenerate**: ubah data di `scripts/build-subdomains.mjs` (bagian `DATA OUTLET`) lalu jalankan `node scripts/build-subdomains.mjs`.
 - **Upload**: cPanel → *Domains/Subdomains* → buat `malangsari` / `sendang` / `dempel` (Document Root `public_html/<nama>`) → upload isi foldernya. Detail lengkap ada di `PANDUAN-UPLOAD.txt`.
+
+---
+
+## 🌿 JWDS v1.0 — Standar Design & Panel Kendali (Role Activation)
+
+> Website ini adalah **percontohan resmi (design reference)** bagi jaringan website
+> PT Digital Bisnis Manajemen. Standarnya dinamai **JWDS — Juragan Website Design
+> Standard v1.0** dan siap direplikasi ke 95+ website lain.
+
+### 📦 Isi paket standarisasi
+
+| File | Fungsi |
+|---|---|
+| `DESIGN-SYSTEM.md` | Blueprint lengkap JWDS v1.0: token, 12 komponen wajib, motion, SEO, infrastruktur, **checklist peluncuran 15 titik**, alur replikasi 5 langkah |
+| `design-standard/index.html` | **Styleguide visual mandiri** (1 file, tanpa dependensi) — bisa di-host di mana saja, mis. `standar.juraganwebsite.web.id` |
+| `src/lib/design-tokens.ts` | Sumber tunggal token + config role (dibaca Mode Percontohan) |
+| `src/components/landing/control-panel.tsx` | Panel Kendali — sistem role activation |
+
+### 🔐 Panel Kendali — role activation "super sakti"
+
+Tersembunyi total dari pengunjung biasa (tanpa kode = tidak ada yang berubah).
+**3 pintu masuk:** tambah `#panel` di URL · tekan **Shift+P** · ketuk logo footer **5×** cepat.
+
+| Role | Kode | Kewenangan |
+|---|---|---|
+| 👑 Pemilik | `RAJA-95` | Semua + manajer banner promo live + ekspor leads CSV + log audit + salin JSON |
+| 🎨 Desainer | `JWDS-95` | **Mode Percontohan**: anotasi pola JWDS di atas halaman live + palet klik-salin-hex + statistik leads |
+| 🧺 Staf | `STAF-95` | Statistik klik WhatsApp per section + banner promo |
+
+- **Pelacak leads** — setiap klik `wa.me` tercatat per section (Hero, Harga, Outlet…), klik `tel:` terpisah; diekspor ke CSV oleh Pemilik.
+- **Banner promo** — teks promo tampil untuk SEMUA pengunjung tanpa perlu build ulang.
+- **Sesi** aktif 7 hari per perangkat (localStorage), log audit mencatat tiap aktivasi.
+- ⚠️ **Catatan jujur**: sistem ini 100% client-side (per perangkat) — praktis untuk
+  tim internal & demo, bukan pengaman server. Untuk kendali lintas perangkat /
+  multi-admin, jalankan modul full-stack (NextAuth + Prisma) — design tidak berubah.
+
+### 🧭 Alur replikasi ke website baru (ringkas)
+
+`1. Clone struktur` → `2. Ganti src/lib/site.ts + palet` → `3. Cek dengan Mode Percontohan (JWDS-95)` → `4. Lolos checklist 15 titik` → `5. npm run deploy + upload cPanel`. Detail: `DESIGN-SYSTEM.md` §9.
 
 ---
 

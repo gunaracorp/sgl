@@ -384,3 +384,27 @@ Work Log:
 Stage Summary:
 - Source code lengkap di https://github.com/gunaracorp/sgl (branch main), paket deploy siap unduh di Releases v1.0.0
 - Catatan keamanan: token PAT sudah tersimpan di remote URL lokal; sarankan rotasi token & jangan pernah share token di chat publik
+
+---
+Task ID: 23
+Agent: main orchestrator (Z.ai Code)
+Task: JWDS v1.0 — standarisasi design untuk 95 website + Panel Kendali (role activation super sakti)
+
+Work Log:
+- Konsep: website SGL diangkat jadi PERCONTOHAN resmi jaringan; standar dinamai JWDS (Juragan Website Design Standard) v1.0
+- src/lib/design-tokens.ts (BARU): sumber tunggal JWDS — palet 13 warna (token/hex/peran), skala tipografi 6 langkah, bentuk/jarak/bayangan, motion, peta 10 pola section, config 3 role activation (pemilik RAJA-95 / desainer JWDS-95 / staf STAF-95, sesi 7 hari)
+- src/components/landing/control-panel.tsx (BARU, client-only, hydration-safe via rAF boot): 3 pintu rahasia (#panel/#aktivas, Shift+P, ketuk logo footer 5x ≤2s); Dialog aktivasi kode; Sheet panel per role; pelacak leads wa.me per section + tel: (capture listener, localStorage jw_leads); manajer banner promo live (jw_promo, tampil utk semua pengunjung, z-60); Mode Percontohan — outline dashed lime + chip "◆ JWDS · pola" + title token di 10 section + palet floating 13 swatch klik-salin-hex; audit log 20 entri (jw_audit); ekspor CSV leads; salin JSON; reset leads; logout
+- page.tsx: mount <ControlPanel /> (zero visual impact utk pengunjung biasa — terverifikasi)
+- DESIGN-SYSTEM.md (BARU): blueprint JWDS v1.0 — 4 filosofi, token, 12 komponen wajib, motion, SEO/JSON-LD @graph, infrastruktur cPanel, dokumentasi role (kode = INTERNAL), checklist peluncuran 15 titik, alur replikasi 5 langkah
+- design-standard/index.html (BARU): styleguide mandiri 1 file (~28KB, zero dependensi) — header hero, palet klik-salin, type scale, tombol/pill, kartu + price dashed rows, demo motion IntersectionObserver, tabel 12 pola, template JSON-LD, section role, checklist interaktif (localStorage)
+- FIX lint: boot localStorage dibungkus requestAnimationFrame (rule react-hooks/set-state-in-effect)
+- FIX UX: hash #panel saat sesi aktif → langsung buka panel (bukan modal aktivasi)
+- FIX BUILD: route demo scaffold src/app/api/route.ts error dgn output:export ("dynamic=force-static not configured") — route tak terpakai di site statis → dihapus; build sukses 9/9
+- Verifikasi browser: modal aktivasi (kode salah ditolak ✓, JWDS-95 ✓, RAJA-95 ✓), 10 anotasi JWDS muncul, palet 13 swatch, leads tercatat {wa:lainnya:1, wa:layanan:1} + tampil live di panel, banner promo tampil utk semua, audit log "Pemilik | Desainer", sesi persisten setelah reload, styleguide file:// render sempurna + checklist tersimpan, 0 error console, mobile 390 modal rapi
+- README.md: section "🌿 JWDS v1.0 — Standar Design & Panel Kendali" + TOC; catatan jujur client-side + jalur upgrade NextAuth+Prisma
+- Build: BUILD_DIST_DIR=.next-build npm run deploy → out/ 9/9 + ZIP 3.2MB; .next-build dibersihkan
+
+Stage Summary:
+- SGL resmi jadi percontohan JWDS v1.0: DESIGN-SYSTEM.md + styleguide mandiri + Mode Percontohan siap melatih tim & memeriksa 95 website
+- Panel Kendali tersembunyi berfungsi penuh: 3 role, leads tracker, promo live, audit — tanpa mengubah 1 pixel utk pengunjung
+- Catatan: kode aktivasi ikut ter-embed di JS bundle (sifat client-side) — utk keamanan sejati upgrade full-stack
