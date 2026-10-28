@@ -448,7 +448,7 @@ Work Log:
 - src/app/blog/[slug]/page.tsx: generateStaticParams + generateMetadata (OG type article, publishedTime) + breadcrumb 3 tingkat + JSON-LD BlogPosting & BreadcrumbList + hero artikel + renderer blok (tip card lime, quote emerald, ol angka emerald) + CTA WA dgn pesan per-artikel + share WA + 3 related post
 - site.ts NAV_LINKS +Galeri +Blog (9 item); sitemap.ts +/galeri/ +/blog/ +4 artikel (lastModified dari tanggal artikel)
 - Verifikasi: lint bersih; browser — /galeri 9 foto loaded 9/9 (lazy OK), filter 9→4 bekerja, lightbox buka/navigasi panah/ESC OK; /blog 4 kartu; artikel render 10 p + 3 list + quote + tip; JSON-LD [BlogPosting, BreadcrumbList]; related 3 kartu; navbar desktop 9 link rapi
-- Build static + Release v1.2.0 → GitHub
+- Build static + Release v1.3.0 → GitHub
 
 Stage Summary:
 - Website kini 11 halaman: +/galeri +/blog +4 URL artikel — total 15 URL di sitemap
