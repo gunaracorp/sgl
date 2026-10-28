@@ -431,3 +431,26 @@ Stage Summary:
 - Website kini 9 halaman mandiri: beranda + tentang + layanan + harga + faq + kontak + 3 outlet — tiap topik URL sendiri, SEO rapi
 - Pola halaman baru terdokumentasi (PageHero + metadata + sitemap) — replikasi JWDS makin mudah
 - ZIP diperbarui via npm run deploy; siap release v1.2.0
+
+---
+Task ID: 25
+Agent: main orchestrator (Z.ai Code)
+Task: Halaman Galeri Foto (/galeri) + Blog sederhana (/blog + /blog/[slug]) — lengkapi halaman mandiri
+
+Work Log:
+- Request user: "tambahkan halaman galeri/foto atau halaman blog sederhana biar makin lengkap lalu push ke github" → dikerjakan KEDUANYA
+- Generate 13 foto AI realistis via scripts/generate-gallery.mjs (z-ai-web-dev-sdk + sharp kompres JPG q80 lebar 1200): 9 galeri 4:3 (~90KB/foto) + 4 thumbnail blog 16:9 (~85KB) → public/images/gallery/ & public/images/blog/ (total ~1,1MB, ringan utk cPanel). Script di-commit sbg tooling replikasi (file lama di-skip, aman re-run)
+- src/lib/gallery-data.ts: GALLERY_ITEMS 9 foto (alt SEO + caption + kategori outlet/proses/layanan), GALLERY_CATEGORIES, galleryImgPath()
+- src/components/landing/gallery-grid.tsx (client): filter chips aria-pressed + grid rounded-3xl hover zoom + lightbox aksesibel (dialog, ESC/panah keyboard, body scroll lock, counter n/total, caption)
+- src/app/galeri/page.tsx: PageHero + JSON-LD ImageGallery (9 ImageObject) + GalleryGrid + section transparansi + CTA WhatsApp/harga; metadata OG pakai foto outlet
+- src/lib/blog-data.ts: BLOG_POSTS 4 artikel lengkap (blok terstruktur p/h2/ul/ol/quote/tip — tanpa dependency markdown, bebas XSS): wangi tahan lama, 7 noda membandel, deterjen nabati, cara melipat; blogPostingJsonLd() + getBlogPost() + blogImgPath()
+- src/app/blog/page.tsx: PageHero + JSON-LD Blog + featured terbaru besar + grid 3 kartu + banner eco; Line-clamp excerpt
+- src/app/blog/[slug]/page.tsx: generateStaticParams + generateMetadata (OG type article, publishedTime) + breadcrumb 3 tingkat + JSON-LD BlogPosting & BreadcrumbList + hero artikel + renderer blok (tip card lime, quote emerald, ol angka emerald) + CTA WA dgn pesan per-artikel + share WA + 3 related post
+- site.ts NAV_LINKS +Galeri +Blog (9 item); sitemap.ts +/galeri/ +/blog/ +4 artikel (lastModified dari tanggal artikel)
+- Verifikasi: lint bersih; browser — /galeri 9 foto loaded 9/9 (lazy OK), filter 9→4 bekerja, lightbox buka/navigasi panah/ESC OK; /blog 4 kartu; artikel render 10 p + 3 list + quote + tip; JSON-LD [BlogPosting, BreadcrumbList]; related 3 kartu; navbar desktop 9 link rapi
+- Build static + Release v1.2.0 → GitHub
+
+Stage Summary:
+- Website kini 11 halaman: +/galeri +/blog +4 URL artikel — total 15 URL di sitemap
+- Galeri interaktif penuh (filter+lightbox aksesibel), blog data-driven siap dikembangkan tanpa CMS
+- Foto AI kompresi ringan; script regenerasi terdokumentasi utk 95 website

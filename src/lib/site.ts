@@ -312,6 +312,8 @@ export const NAV_LINKS = [
   { label: "Layanan", href: "/layanan" },
   { label: "Harga", href: "/harga" },
   { label: "Outlet", href: "/#lokasi" },
+  { label: "Galeri", href: "/galeri" },
+  { label: "Blog", href: "/blog" },
   { label: "FAQ", href: "/faq" },
   { label: "Kontak", href: "/kontak" },
 ] as const;

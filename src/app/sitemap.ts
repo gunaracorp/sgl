@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { BLOG_POSTS } from "@/lib/blog-data";
 import { OUTLETS, SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-static";
@@ -9,6 +10,8 @@ const STATIC_PAGES = [
   { path: "/tentang/", priority: 0.7 },
   { path: "/layanan/", priority: 0.9 },
   { path: "/harga/", priority: 0.9 },
+  { path: "/galeri/", priority: 0.6 },
+  { path: "/blog/", priority: 0.8 },
   { path: "/faq/", priority: 0.6 },
   { path: "/kontak/", priority: 0.8 },
 ] as const;
@@ -37,6 +40,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified,
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    // Artikel blog — update berkala
+    ...BLOG_POSTS.map((post) => ({
+      url: `${SITE_URL}/blog/${post.slug}/`,
+      lastModified: new Date(post.date),
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
     })),
   ];
 }
