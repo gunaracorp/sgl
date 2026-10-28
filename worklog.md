@@ -367,3 +367,20 @@ Stage Summary:
 - 3 landing page HTML mandiri siap upload: subdomain-sites/{malangsari,sendang,dempel}/ → samara-green-laundry-subdomains.zip (275KB, 13 file)
 - Konsep hub & spoke: website pusat = hub, subdomain = spoke dengan konten unik per outlet + cross-link — ide jualan janji user jadi senjata SEO lokal
 - Regenerasi cukup: edit DATA di scripts/build-subdomains.mjs → node scripts/build-subdomains.mjs
+
+---
+Task ID: 22
+Agent: main orchestrator (Z.ai Code)
+Task: Upload project ke GitHub — repo gunaracorp/sgl
+
+Work Log:
+- Repo kosong saat cek ls-remote; remote origin di-set (token PAT, disimpan di .git/config untuk push berikutnya)
+- Pembersihan sebelum push: git rm --cached .env, db/custom.db, samara-green-laundry-website.zip, samara-green-laundry-subdomains.zip, .zscripts/dev.pid + gitignore baru (/*.zip, db/, .zscripts/dev.pid) — .env & db tidak boleh masuk GitHub, zip = build artifact
+- Git identity lokal: gunaracorp <gunaracorp@users.noreply.github.com>
+- Commit 6f22060 "Samara Green Laundry — website pusat + 3 landing page subdomain" → push -u origin main OK
+- GitHub Release v1.0.0 dibuat via API + 2 asset ter-upload: samara-green-laundry-website.zip (2.98MB) & samara-green-laundry-subdomains.zip (282KB) — bisa diunduh langsung dari halaman Releases untuk upload cPanel
+- Verifikasi API tree main: 168 file, src/subdomain-sites/scripts/README/worklog lengkap; .env & db terkonfirmasi TIDAK ikut
+
+Stage Summary:
+- Source code lengkap di https://github.com/gunaracorp/sgl (branch main), paket deploy siap unduh di Releases v1.0.0
+- Catatan keamanan: token PAT sudah tersimpan di remote URL lokal; sarankan rotasi token & jangan pernah share token di chat publik
